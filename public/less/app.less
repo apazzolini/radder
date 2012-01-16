@@ -1,0 +1,70 @@
+@crederaRed: #EE3A43;
+
+body {
+  color: #222;
+}
+
+#mainContainer {
+  margin-top: 18px;
+}
+/*	--------------------------------------------------
+	:: Foundation Extensions
+	-------------------------------------------------- */
+.foundation-header {
+  margin: 0 0 40px 0;
+  padding: 30px 0 0 0;
+  border-bottom: solid 1px #ccc;
+}
+
+/*	--------------------------------------------------
+	:: Foundation Overrides
+	-------------------------------------------------- */
+.nice.tabs.vertical dd a.active { background: @crederaRed; }
+a { color: @crederaRed; text-decoration: none; line-height: inherit; }
+a:hover { color: darken(@crederaRed, 15); }
+a:focus { color: #cc4714; outline: none; }
+p a, p a:visited { line-height: inherit; }
+
+/*	--------------------------------------------------
+	:: zurBar (header bar)
+	-------------------------------------------------- */
+#zurBar {
+  background: #282828;
+  border-bottom: solid 4px @crederaRed;
+  padding: 15px 20px 13px 20px; 
+
+  span.small {
+    color: white;
+    font-size: .7em;
+    margin-left: 10px;
+  }
+}
+  
+#zurBar h1, #zurBar h2 {
+  margin-bottom: 0;
+  line-height: 1; 
+}
+#zurBar h1 {
+  color: white;
+  font-size: 16px;
+  font-size: 1.6rem;
+  font-weight: 800; 
+}
+#zurBar h1 a { color: #fff; font-weight: bold; }
+#zurBar h2 a {
+  text-indent: -99999px;
+  display: block;
+  width: 82px;
+  height: 14px;
+}
+
+#zurBar strong { display: block; margin: 0; padding: 0; height: 14px; line-height: 14px; position: relative; bottom: 4px; }
+#zurBar strong a {
+  line-height: 14px;
+  color: #fff;
+  font-weight: 500;
+  padding-right: 12px;
+}
+
+#zurBar strong a.button { padding: 4px 10px; font-weight: bold; }
+
