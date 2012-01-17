@@ -4,21 +4,25 @@
 
 
 # Home page
-GET     /                   	Application.index
+GET     /                   		Application.index
 
-GET		/rules					Application.showRule
-GET     /rules/{rule}			Application.showRule
-GET		/signup					Players.signup
-POST	/signup					Players.createPlayer
+GET		/rules						Application.showRule
+GET     /rules/{rule}				Application.showRule
+GET		/signup						Players.signup
+POST	/signup						Players.createPlayer
+GET		/challenge					Games.challenge
+GET		/createChallenge/{email}	Games.createChallenge
+GET		/results					Games.results
+GET		/myGames					Games.myGames
 
-*      /                		module:secure
-*      /admin              		module:crud
+*      /                			module:secure
+*      /admin              			module:crud
 
 # Ignore favicon requests
-GET     /favicon.ico         	404
+GET     /favicon.ico         		404
 
 # Map static resources from the /app/public folder to the /public path
-GET     /public/             	staticDir:public
+GET     /public/             		staticDir:public
 
 # Catch all
-*       /{controller}/{action}	{controller}.{action}
+*       /{controller}/{action}		{controller}.{action}
