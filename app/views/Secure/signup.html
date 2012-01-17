@@ -6,7 +6,7 @@
 		<h1>New User Registration</h1>
 		<h4 class='subheader'>Fill out this here form</h4>
 	</div>
-	<form action='@{Players.createPlayer()}' class='nice' id='registration' method='post'>
+	#{form @createPlayer(), class: 'nice', id: 'registration'}
 		<label for='firstName'>First Name</label>
 		<input class='input-text' id='firstName' name='firstName' size='30' type='text' />
 		<label for='firstName'>Last Name</label>
@@ -18,5 +18,5 @@
 		<label for='passwordConfirm'>Confirm Password</label>
 		<input class='input-text' id='passwordConfirm' name='passwordConfirm' size='30' type='password' />
 		<a class='small red nice button' href='#' onclick="$('#registration').submit()">Mash this here button</a>
-	</form>
+	#{/form}
 </div>

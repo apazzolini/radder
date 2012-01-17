@@ -1,8 +1,6 @@
 package controllers;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 import models.Game;
 import models.Player;
@@ -10,15 +8,7 @@ import models.Player;
 public class Games extends CRUD {
 	
     public static void challenge() {
-    	List<Player> players = Player.findAll();
-    	Collections.sort(players, Player.ratingComparator());
-    	ListIterator<Player> it = players.listIterator();
-    	while (it.hasNext()) {
-    		Player player = it.next();
-    		if (player.email.equals(session.get("username"))) {
-    			it.remove();
-    		}
-    	}
+    	List<Player> players = Player.find("email != ? order by rating desc", session.get("username")).fetch();
     	render(players);
     }
     
@@ -35,9 +25,10 @@ public class Games extends CRUD {
     	render(games);
     }
     
-    public static void myGames() {
-    	List<Game> games = Game.findAll();
-    	render(games);
+    public static void resultsForUser(String email) {
+    	List<Game> games = Game.find("one.email = ? or two.email = ? order by timeResultRecorded desc", email, email).fetch();
+    	renderArgs.put("singleUser", true);
+    	renderTemplate("Games/results.html", games);
     }
 
 }

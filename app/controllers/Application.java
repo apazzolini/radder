@@ -8,20 +8,6 @@ public class Application extends Controller {
 	
 
     public static void index() {
-    	/*
-    	Player one = new Player();
-    	one.firstName = "Andre";
-    	one.lastName = "Azzolini";
-    	one.save();
-    	
-    	one = new Player();
-    	one.firstName = "John";
-    	one.lastName = "Doe";
-    	one.save();
-    	*/
-    	
-    	
-    	
         render();
     }
     

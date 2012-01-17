@@ -26,11 +26,11 @@
 	        <div class='six columns'>
 	          <strong class='right'>
 				#{if session.username}
-					<a href='/myGames'>My Games</a>
-	            	<a href='/challenge'>Challenge</a>
+					<a href='@{Games.resultsForUser(session.username)}'>My Games</a>
+	            	<a href='@{Games.challenge()}'>Challenge</a>
 	            #{/if}
-	            <a href='/results'>Results</a>
-	            <a href='/rules'>Rules</a>
+	            <a href='@{Games.results()}'>Results</a>
+	            <a href='@{Application.showRule()}'>Rules</a>
 				#{if session.username}
 					<a class='small red round nice button src-download' href='/logout'>Logout (${session.firstName})</a>
 				#{/if}

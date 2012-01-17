@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -13,6 +15,7 @@ public class Game extends Model {
 	public Integer winner;
 	public Integer winnerScore;
 	public Integer loserScore;
+	public Date timeResultRecorded;
 	
 	public String getWinnerName() {
 		if (winner != null) { 
@@ -22,6 +25,6 @@ public class Game extends Model {
 				case 2: return two.toString();
 			}
 		} 
-		return "n/a";
+		return "Not yet played";
 	}
 }
