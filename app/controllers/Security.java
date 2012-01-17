@@ -14,4 +14,8 @@ public class Security extends Secure.Security {
 		Player player = Player.find("byEmail", session.get("username")).first();
 		session.put("firstName", player.firstName.trim());
 	}
+	
+	static void onDisconnected() {
+		Application.index();
+	}
 }
