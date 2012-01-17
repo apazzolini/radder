@@ -13,14 +13,15 @@ public class Game extends Model {
 	@ManyToOne public Player two;
 	
 	public Integer winner;
-	public Integer winnerScore;
-	public Integer loserScore;
+	public Integer oneScore;
+	public Integer twoScore;
+	
+	public Date timeChallengeSent;
 	public Date timeResultRecorded;
 	
 	public String getWinnerName() {
 		if (winner != null) { 
 			switch (winner) {
-				case 0: return "Draw";
 				case 1: return one.toString();
 				case 2: return two.toString();
 			}

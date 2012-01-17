@@ -23,5 +23,13 @@ public class Player extends Model {
 	public String toString() {
 		return firstName + " " + lastName;
 	}
+	
+	public void wonAgainst(Player other) { 
+		this.rating += 20;
+	}
+	
+	public void lostTo(Player other) { 
+		this.rating -= 20;
+	}
 
 }
