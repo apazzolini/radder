@@ -1,5 +1,5 @@
 # Application dependencies
 
 require:
-    - play 1.2.4 -> secure
-    - play 1.2.4 -> crud
+    - play -> secure
+    - play -> crud
