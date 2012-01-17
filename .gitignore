@@ -3,3 +3,6 @@
 .settings
 eclipse
 tmp
+library
+modules
+db

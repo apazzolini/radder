@@ -4,13 +4,47 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        #{get 'moreScripts' /}
+        
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/foundation.css'}"/>
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/ie.css'}"/>
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/app.css'}"/>
+		
+        <script src="@{'/public/javascripts/foundation.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/knockout-2.0.0.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/app.js'}" type="text/javascript" charset="${_response_encoding}"></script>
     </head>
     <body>
-        #{doLayout /}
+	    <div class='container' id='zurBar'>
+	      <div class='row'>
+	        <div class='six columns'>
+	          <h1>
+	            <a href='/'>
+	              Credera Ping Pong Ladder
+	            </a>
+	          </h1>
+	        </div>
+	        <div class='six columns'>
+	          <strong class='right'>
+				#{if session.username}
+	            	<a href='/challenge'>Challenge</a>
+	            #{/if}
+	            <a href='/results'>Results</a>
+	            <a href='/rules'>Rules</a>
+				#{if session.username}
+					<a class='small red round nice button src-download' href='/logout'>Logout (${session.firstName})</a>
+				#{/if}
+				#{else}
+					<a class='small red round nice button src-download' href='/signup'>Sign Up</a>
+					<a class='small red round nice button src-download' href='/login'>Login</a>
+				#{/else}
+	          </strong>
+	        </div>
+	      </div>
+	    </div>
+	    <div class='container' id='mainContainer'>
+        	#{doLayout /}
+	    </div>
     </body>
 </html>
+
+
