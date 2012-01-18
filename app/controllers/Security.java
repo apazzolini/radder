@@ -7,7 +7,7 @@ import models.Player;
 
 
 public class Security extends Secure.Security {
-	protected final static Integer DEFAULT_RATING = 1500;
+	protected final static Double DEFAULT_RATING = 1500.0;
 	
     public static void signup() {
     	renderTemplate("Secure/signup.html");
