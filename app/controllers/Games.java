@@ -20,6 +20,17 @@ public class Games extends CRUD {
     public static void logResult(Long gameId, Integer oneScore, Integer twoScore) {
     	Game game = Game.findById(gameId);
     	
+    	validation.range(oneScore, 0, 99);
+    	validation.range(twoScore, 0, 99);
+    	
+    	if (validation.hasErrors() || oneScore.equals(twoScore)) {
+    		renderTemplate("Games/gameResult.html", game);
+    	}
+    	
+    	if (!game.one.email.equals(session.get("username")) && !game.two.email.equals(session.get("username"))) {
+    		renderTemplate("Games/gameResult.html", game);
+    	}
+    	
     	game.oneScore = oneScore;
     	game.twoScore = twoScore;
     	game.winner = (oneScore > twoScore) ? 1 : 2;

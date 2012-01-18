@@ -14,6 +14,18 @@ public class Security extends Secure.Security {
     }
     
     public static void createPlayer(String firstName, String lastName, String email, String password, String passwordConfirm) {
+    	validation.required(firstName);
+    	validation.required(lastName);
+    	validation.required(email);
+    	validation.required(password);
+    	validation.equals(password, passwordConfirm);
+    	if (validation.hasErrors()) {
+    		params.flash();
+    		validation.keep();
+            flash.error("Your form contained errors");
+    		signup();
+    	}
+    	
     	// Create the new player with the default rating
     	Player player = new Player();
     	player.firstName = firstName;

@@ -7,6 +7,16 @@
 		<h4 class='subheader'>Fill out this here form</h4>
 	</div>
 	#{form @createPlayer(), class: 'nice', id: 'registration'}
+		#{if flash.error}
+			<p class="error">
+				&{flash.error}
+			</p>
+		#{/if}
+		#{if flash.success}
+			<p class="success">
+				&{flash.success}
+			</p>
+		#{/if}
 		<label for='firstName'>First Name</label>
 		<input class='input-text' id='firstName' name='firstName' size='30' type='text' />
 		<label for='firstName'>Last Name</label>
