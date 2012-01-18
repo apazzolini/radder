@@ -14,7 +14,7 @@ public class Application extends Controller {
 
     public static void index() {
     	List<Player> players = Player.find("order by rating desc").fetch();
-    	List<Game> games = Game.find("order by timeResultRecorded desc").fetch(5);
+    	List<Game> games = Game.find("winner is not null order by timeResultRecorded desc").fetch(5);
     	render(players, games);
     }
     

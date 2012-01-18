@@ -1,5 +1,5 @@
 <tr id="gameRow${game.id}">
-	<td>${game.datePlayed}</td>
+	<td>${game.datePlayedOrChallenged}</td>
 	<td #{if 1 == game.winner}class="winner"#{/if}>
 		#{if session.username != null && game.one.email != session.username}
 			<a href='@{Games.resultsForUser(game.one.email)}'>${game.one}</a>

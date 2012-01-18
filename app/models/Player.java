@@ -16,7 +16,7 @@ public class Player extends Model {
 	public Boolean beginner;
 	
 	public Integer numGamesPlayed() {
-    	return (Game.find("one.email = ? or two.email = ?", email, email).fetch()).size();
+    	return (Game.find("(one.email = ? or two.email = ?) and winner is not null", email, email).fetch()).size();
 	}
 	
 	public String toString() {

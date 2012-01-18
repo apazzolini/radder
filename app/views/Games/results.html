@@ -3,6 +3,24 @@
 
 <div class='row'>
 	#{resultsHeader resultsUser: resultsUser /}
+	<h3>Unplayed Games</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Date Challenged</td>
+				<td>Player One</td>
+				<td>Player Two</td>
+				<td>Score</td>
+			</tr>
+		</thead>
+		<tbody>
+			#{list items:unplayedGames, as:'game'}
+				#{include 'Games/gameResult.html' /}
+			#{/list}
+		</tbody>
+	</table>
+	
+	<h3>Played Games</h2>
 	<table>
 		<thead>
 			<tr>
@@ -13,7 +31,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			#{list items:games, as:'game'}
+			#{list items:playedGames, as:'game'}
 				#{include 'Games/gameResult.html' /}
 			#{/list}
 		</tbody>

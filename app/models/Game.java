@@ -30,12 +30,12 @@ public class Game extends Model {
 		return "Not yet played";
 	}
 	
-	public String getDatePlayed() {
-		if (timeResultRecorded == null) { 
-			return "Unplayed";
-		}
-		
+	public String getDatePlayedOrChallenged() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy - HH:mm");
-		return sdf.format(timeResultRecorded);
+		if (timeResultRecorded == null) { 
+			return sdf.format(timeChallengeSent);
+		} else {
+			return sdf.format(timeResultRecorded);
+		}
 	}
 }

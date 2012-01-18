@@ -9,6 +9,7 @@
 		<table class="homepageTable">
 			<thead>
 				<tr>
+					<td>Rank</td>
 					<td>Person</td>
 					<td>Rating</td>
 					<td>Games Played</td>
@@ -22,6 +23,7 @@
 			<tbody>
 				#{list items:players, as:'player'}
 					<tr>
+						<td>${player_index}</td>
 						<td><a href="@{Games.resultsForUser(player.email)}">${player}</a></td>
 						<td>${player.rating.intValue()}</td>
 						<td>${player.numGamesPlayed()}</td>

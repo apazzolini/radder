@@ -49,14 +49,16 @@ public class Games extends CRUD {
     }
     
     public static void results() {
-    	List<Game> games = Game.find("order by timeResultRecorded desc").fetch();
-    	render(games);
+    	List<Game> unplayedGames = Game.find("winner is null order by timeChallengeSent asc").fetch();
+    	List<Game> playedGames = Game.find("winner is not null order by timeResultRecorded desc").fetch();
+    	render(unplayedGames, playedGames);
     }
     
     public static void resultsForUser(String email) {
-    	List<Game> games = Game.find("one.email = ? or two.email = ? order by timeResultRecorded desc", email, email).fetch();
+    	List<Game> unplayedGames = Game.find("(one.email = ? or two.email = ?) and winner is null order by timeChallengeSent asc", email, email).fetch();
+    	List<Game> playedGames = Game.find("(one.email = ? or two.email = ?) and winner is not null order by timeResultRecorded desc", email, email).fetch();
     	renderArgs.put("resultsUser", Player.find("byEmail", email).first());
-    	renderTemplate("Games/results.html", games);
+    	renderTemplate("Games/results.html", unplayedGames, playedGames);
     }
 
 }
