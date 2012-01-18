@@ -38,8 +38,6 @@ public class Games extends CRUD {
     	
     	Player winner = (game.winner == 1) ? game.one : game.two;
     	Player loser = (game.winner == 1) ? game.two : game.one;
-    	winner.games.add(game);
-    	loser.games.add(game);
     	
     	winner.wonAgainst(loser, game);
     	
@@ -51,7 +49,7 @@ public class Games extends CRUD {
     }
     
     public static void results() {
-    	List<Game> games = Game.findAll();
+    	List<Game> games = Game.find("order by timeResultRecorded desc").fetch();
     	render(games);
     }
     

@@ -1,9 +1,6 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 
 import play.db.jpa.Model;
 
@@ -18,7 +15,9 @@ public class Player extends Model {
 	public Boolean pro;
 	public Boolean beginner;
 	
-	@ManyToMany public List<Game> games;
+	public Integer numGamesPlayed() {
+    	return (Game.find("one.email = ? or two.email = ?", email, email).fetch()).size();
+	}
 	
 	public String toString() {
 		return firstName + " " + lastName;

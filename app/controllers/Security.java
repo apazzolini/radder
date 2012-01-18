@@ -1,8 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-
-import models.Game;
 import models.Player;
 
 
@@ -33,7 +30,6 @@ public class Security extends Secure.Security {
     	player.email = email;
     	player.password = password;
     	player.rating = DEFAULT_RATING;
-    	player.games = new ArrayList<Game>();
     	player.save();
     	
     	// Log the user in automatically and return to the homepage

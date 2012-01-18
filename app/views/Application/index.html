@@ -23,8 +23,8 @@
 				#{list items:players, as:'player'}
 					<tr>
 						<td><a href="@{Games.resultsForUser(player.email)}">${player}</a></td>
-						<td>${player.rating}</td>
-						<td>${player.games.size()}</td>
+						<td>${player.rating.intValue()}</td>
+						<td>${player.numGamesPlayed()}</td>
 						<td>
 							#{if session.username && session.username != player.email}
 								<a href="@{Games.createChallenge(player.email)}">Challenge</a>
