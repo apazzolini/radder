@@ -14,7 +14,7 @@ public class Player extends Model {
 	public String email;
 	public String password;
 	
-	public Integer rating;
+	public Double rating;
 	public Boolean pro;
 	public Boolean beginner;
 	
@@ -25,14 +25,21 @@ public class Player extends Model {
 	}
 	
 	public void wonAgainst(Player other, Game game) { 
-		this.rating += 20;
-		games.add(game);
-	}
-	
-	public void lostTo(Player other, Game game) { 
-		this.rating -= 20;
-		games.add(game);
-	}
-	
+		double RA = this.rating;
+		double RB = other.rating;
+		
+		double QA = Math.pow(10, RA/400);
+		double QB = Math.pow(10, RB/400);
 
+		double k = 32;
+
+		double EA = QA / (QA + QB);
+		double EB = QB / (QA + QB);	    	
+
+		double SA = 1;
+		double SB = 0;
+
+		this.rating = RA + (k * (SA - EA));
+		other.rating = RB + (k * (SB - EB));
+	}
 }

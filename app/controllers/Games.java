@@ -27,8 +27,10 @@ public class Games extends CRUD {
     	
     	Player winner = (game.winner == 1) ? game.one : game.two;
     	Player loser = (game.winner == 1) ? game.two : game.one;
+    	winner.games.add(game);
+    	loser.games.add(game);
+    	
     	winner.wonAgainst(loser, game);
-    	loser.lostTo(winner, game);
     	
     	game.save();
     	winner.save();
