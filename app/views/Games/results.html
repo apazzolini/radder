@@ -2,19 +2,35 @@
 #{set title:'rules' /}
 
 <div class='row'>
-	<div class='foundation-header'>
-		#{if singleUser}
-			<h1>Results for ${session.firstName}</h1>
-		#{/if}
-		#{else}
-			<h1>All Results</h1>
-		#{/else}
-	</div>
-	<ul>
-		#{list items:games, as:'game'}
-			<li> ${game.one} vs ${game.two} -- winner ${game.winnerName} </li>
-		#{/list}
-	</ul>
-	
-	
+	#{resultsHeader resultsUser: resultsUser /}
+	<table>
+		<thead>
+			<tr>
+				<td>Date Played</td>
+				<td>Player One</td>
+				<td>Player Two</td>
+				<td>Score</td>
+			</tr>
+		</thead>
+		<tbody>
+			#{list items:games, as:'game'}
+				#{include 'Games/gameResult.html' /}
+			#{/list}
+		</tbody>
+	</table>
 </div>
+
+<script type="text/javascript">
+	function logResult(gameId, link) {
+		var oneScore = link.find('#oneScore').val();
+		var twoScore = link.find('#twoScore').val();
+		$.post('@{Games.logResult()}', {
+			ts: new Date(), 
+			gameId  : gameId,
+			oneScore: oneScore,
+			twoScore: twoScore
+			}, function(data) {
+				$("#gameRow" + gameId).replaceWith(data);
+			});
+	}
+</script>

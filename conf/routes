@@ -15,7 +15,7 @@ GET		/challenge					Games.challenge
 GET		/challenge/{email}			Games.createChallenge
 GET		/results					Games.results
 GET		/results/{email}			Games.resultsForUser
-POST	/result/{gameId}			Games.logResult
+POST	/result						Games.logResult
 
 *      /                			module:secure
 *      /admin              			module:crud

@@ -1,0 +1,20 @@
+<tr id="gameRow${game.id}">
+	<td>${game.datePlayed}</td>
+	<td #{if 1 == game.winner}class="winner"#{/if}>${game.one}</td>
+	<td #{if 2 == game.winner}class="winner"#{/if}>${game.two}</td>
+	#{if game.winner != null}
+		<td>${game.oneScore} - ${game.twoScore}</td>
+	#{/if}
+	#{else}
+		<td>	
+			#{if game.one.email == session.username || game.two.email == session.username}
+				<form class="nice inline">
+					<input class='input-text inline' id='oneScore' name='oneScore' size="2" maxlength="2" type='text' />
+					<input class='input-text inline' id='twoScore' name='twoScore' size='2' maxlength="2" type='text' />
+					<a class='tiny red nice button' href='#' onclick="logResult(${game.id}, $(this).closest('form'))">Record Results</a>
+				</form>
+			#{/if}
+		</td>
+	#{/else}
+</tr>
+

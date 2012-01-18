@@ -1,5 +1,6 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -27,5 +28,14 @@ public class Game extends Model {
 			}
 		} 
 		return "Not yet played";
+	}
+	
+	public String getDatePlayed() {
+		if (timeResultRecorded == null) { 
+			return "Unplayed";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy - HH:mm");
+		return sdf.format(timeResultRecorded);
 	}
 }

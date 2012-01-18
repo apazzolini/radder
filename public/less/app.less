@@ -7,6 +7,15 @@ body {
 #mainContainer {
   margin-top: 18px;
 }
+
+td.winner {
+	font-weight: bold;
+}
+
+a.dim {
+	color: #CCC;
+}
+
 /*	--------------------------------------------------
 	:: Foundation Extensions
 	-------------------------------------------------- */
@@ -14,6 +23,19 @@ body {
   margin: 0 0 40px 0;
   padding: 30px 0 0 0;
   border-bottom: solid 1px #ccc;
+}
+.tiny.button { 
+	font-size: 10px; 
+	padding: 6px 8px 4px;
+}
+form.inline {
+	margin-bottom: 0px;
+}
+input.inline {
+	display: inline;
+	width: auto;
+	margin: 0;
+	padding: 2px !important;
 }
 
 /*	--------------------------------------------------
@@ -24,6 +46,7 @@ a { color: @crederaRed; text-decoration: none; line-height: inherit; }
 a:hover { color: darken(@crederaRed, 15); }
 a:focus { color: #cc4714; outline: none; }
 p a, p a:visited { line-height: inherit; }
+table thead tr td { padding: 9px 10px; font-weight: bold;}
 
 /*	--------------------------------------------------
 	:: zurBar (header bar)

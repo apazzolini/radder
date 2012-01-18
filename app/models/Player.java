@@ -24,12 +24,15 @@ public class Player extends Model {
 		return firstName + " " + lastName;
 	}
 	
-	public void wonAgainst(Player other) { 
+	public void wonAgainst(Player other, Game game) { 
 		this.rating += 20;
+		games.add(game);
 	}
 	
-	public void lostTo(Player other) { 
+	public void lostTo(Player other, Game game) { 
 		this.rating -= 20;
+		games.add(game);
 	}
+	
 
 }

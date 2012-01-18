@@ -25,12 +25,10 @@
 	        </div>
 	        <div class='six columns'>
 	          <strong class='right'>
-				#{if session.username}
-					<a href='@{Games.resultsForUser(session.username)}'>My Games</a>
-	            	<a href='@{Games.challenge()}'>Challenge</a>
-	            #{/if}
+	            <a href='@{Application.index()}'>Standings</a>
 	            <a href='@{Games.results()}'>Results</a>
 	            <a href='@{Application.showRule()}'>Rules</a>
+	            
 				#{if session.username}
 					<a class='small red round nice button src-download' href='/logout'>Logout (${session.firstName})</a>
 				#{/if}
@@ -38,6 +36,7 @@
 					<a class='small red round nice button src-download' href='/signup'>Sign Up</a>
 					<a class='small red round nice button src-download' href='/login'>Login</a>
 				#{/else}
+				
 	          </strong>
 	        </div>
 	      </div>

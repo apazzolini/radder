@@ -4,6 +4,12 @@ body {
 #mainContainer {
   margin-top: 18px;
 }
+td.winner {
+  font-weight: bold;
+}
+a.dim {
+  color: #CCC;
+}
 /*	--------------------------------------------------
 	:: Foundation Extensions
 	-------------------------------------------------- */
@@ -11,6 +17,19 @@ body {
   margin: 0 0 40px 0;
   padding: 30px 0 0 0;
   border-bottom: solid 1px #ccc;
+}
+.tiny.button {
+  font-size: 10px;
+  padding: 6px 8px 4px;
+}
+form.inline {
+  margin-bottom: 0px;
+}
+input.inline {
+  display: inline;
+  width: auto;
+  margin: 0;
+  padding: 2px !important;
 }
 /*	--------------------------------------------------
 	:: Foundation Overrides
@@ -32,6 +51,10 @@ a:focus {
 }
 p a, p a:visited {
   line-height: inherit;
+}
+table thead tr td {
+  padding: 9px 10px;
+  font-weight: bold;
 }
 /*	--------------------------------------------------
 	:: zurBar (header bar)
