@@ -22,9 +22,11 @@
 					<td><a href="@{Games.resultsForUser(player.email)}">${player}</a></td>
 					<td>${player.rating}</td>
 					<td>${player.games.size()}</td>
-					#{if session.username && session.username != player.email}
-						<td><a href="@{Games.createChallenge(player.email)}">Challenge</a></td>
-		            #{/if}
+					<td>
+						#{if session.username && session.username != player.email}
+							<a href="@{Games.createChallenge(player.email)}">Challenge</a>
+			            #{/if}
+		            </td>
 				</tr>
 			#{/list}
 		</tbody>
