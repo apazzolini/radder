@@ -10,6 +10,9 @@ td.winner {
 a.dim {
   color: #CCC;
 }
+table.homepageTable {
+  width: 100%;
+}
 /*	--------------------------------------------------
 	:: Foundation Extensions
 	-------------------------------------------------- */
