@@ -1,13 +1,15 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
 @Entity
 public class Player extends Model {
-	public String firstName;
-	public String lastName;
+	public String name;
 	public String email;
 	public String password;
 	
@@ -15,12 +17,10 @@ public class Player extends Model {
 	public Boolean pro;
 	public Boolean beginner;
 	
-	public Integer numGamesPlayed() {
-    	return (Game.find("(one.email = ? or two.email = ?) and winner is not null", email, email).fetch()).size();
-	}
+	@OneToMany public List<Game> games;
 	
 	public String toString() {
-		return firstName + " " + lastName;
+		return name;
 	}
 	
 	public void wonAgainst(Player other, Game game) { 

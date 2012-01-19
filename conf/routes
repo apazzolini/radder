@@ -11,12 +11,16 @@ GET     /rules/{rule}				Application.showRule
 GET		/signup						Security.signup
 POST	/signup						Security.createPlayer
 
-GET		/challenge					Games.challenge
-GET		/challenge/{email}			Games.createChallenge
-GET		/results					Games.results
-GET		/results/{email}			Games.resultsForUser
-POST	/result						Games.logResult
+GET		/challenges					Games.allChallenges
+GET		/challenges/{userid}		Games.userChallenges
 
+POST	/challenge					Games.challenge
+POST	/logResult					Games.logResult
+
+GET		/results					Games.allResults
+GET		/results/{userid}			Games.userResults
+
+# Extra play modules
 *      /                			module:secure
 *      /admin              			module:crud
 

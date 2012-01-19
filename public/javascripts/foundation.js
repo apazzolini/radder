@@ -11,3 +11,101 @@
 (function(c){var b={};c.event.special.imageready={setup:function(f,e,d){b=f||b},add:function(d){var e=c(this),f;if(this.nodeType===1&&this.tagName.toLowerCase()==="img"&&this.src!==""){if(b.forceLoad){f=e.attr("src");e.attr("src","");a(this,d.handler);e.attr("src",f)}else{if(this.complete||this.readyState===4){d.handler.apply(this,arguments)}else{a(this,d.handler)}}}},teardown:function(d){c(this).unbind(".imageready")}};function a(d,f){var e=c(d);e.bind("load.imageready",function(){f.apply(d,arguments);e.unbind("load.imageready")})}}(jQuery));new function(a){a.fn.placeholder=function(b){b=b||{};var j=b.dataKey||"placeholderValue";var f=b.attr||"placeholder";var h=b.className||"placeholder";var k=b.values||[];var c=b.blockSubmit||false;var e=b.blankSubmit||false;var g=b.onSubmit||false;var i=b.value||"";var d=b.cursor_position||0;return this.filter(":input").each(function(l){a.data(this,j,k[l]||a(this).attr(f))}).each(function(){if(a.trim(a(this).val())===""){a(this).addClass(h).val(a.data(this,j))}}).focus(function(){if(a.trim(a(this).val())===a.data(this,j)){a(this).removeClass(h).val(i)}if(a.fn.setCursorPosition){a(this).setCursorPosition(d)}}).blur(function(){if(a.trim(a(this).val())===i){a(this).addClass(h).val(a.data(this,j))}}).each(function(l,m){if(c){new function(n){a(n.form).submit(function(){return a.trim(a(n).val())!=a.data(n,j)})}(m)}else{if(e){new function(n){a(n.form).submit(function(){if(a.trim(a(n).val())==a.data(n,j)){a(n).removeClass(h).val("")}return true})}(m)}else{if(g){new function(n){a(n.form).submit(g)}(m)}}}})}}(jQuery);jQuery(document).ready(function(b){function a(c){b("form.custom input:"+c).each(function(){var e=b(this).hide(),d=e.next("span.custom."+c);if(d.length===0){d=b('<span class="custom '+c+'"></span>').insertAfter(e)}d.toggleClass("checked",e.is(":checked"))})}a("checkbox");a("radio");b("form.custom select").each(function(){var e=b(this),g=e.next("div.custom.dropdown"),c=e.find("option"),d=0,f;if(g.length===0){g=b('<div class="custom dropdown"><a href="#" class="selector"></a><ul></ul></div>"');c.each(function(){f=b("<li>"+b(this).html()+"</li>");g.find("ul").append(f)});g.prepend('<a href="#" class="current">'+c.first().html()+"</a>");e.after(g);e.hide()}c.each(function(h){if(this.selected){g.find("li").eq(h).addClass("selected");g.find(".current").html(b(this).html())}});g.find("li").each(function(){g.addClass("open");if(b(this).outerWidth()>d){d=b(this).outerWidth()}g.removeClass("open")});g.css("width",d+18+"px");g.find("ul").css("width",d+16+"px")})});(function(b){function a(d){var f=d.prev(),e=f[0];e.checked=((e.checked)?false:true);d.toggleClass("checked");f.trigger("change")}function c(d){var f=d.prev(),e=f[0];b('input:radio[name="'+f.attr("name")+'"]').each(function(){b(this).next().removeClass("checked")});e.checked=((e.checked)?false:true);d.toggleClass("checked");f.trigger("change")}b(document).on("click","form.custom span.custom.checkbox",function(d){d.preventDefault();d.stopPropagation();a(b(this))});b(document).on("click","form.custom span.custom.radio",function(d){d.preventDefault();d.stopPropagation();c(b(this))});b(document).on("click","form.custom label",function(e){var d=b("#"+b(this).attr("for")),g,f;if(d.length!==0){if(d.attr("type")==="checkbox"){e.preventDefault();g=b(this).find("span.custom.checkbox");a(g)}else{if(d.attr("type")==="radio"){e.preventDefault();f=b(this).find("span.custom.radio");c(f)}}}});b(document).on("click","form.custom div.custom.dropdown a.current, form.custom div.custom.dropdown a.selector",function(d){var f=b(this),e=f.closest("div.custom.dropdown");d.preventDefault();e.toggleClass("open");if(e.hasClass("open")){b(document).bind("click.customdropdown",function(g){e.removeClass("open");b(document).unbind(".customdropdown")})}else{b(document).unbind(".customdropdown")}});b(document).on("click","form.custom div.custom.dropdown li",function(g){var h=b(this),e=h.closest("div.custom.dropdown"),f=e.prev(),d=0;g.preventDefault();g.stopPropagation();h.closest("ul").find("li").removeClass("selected");h.addClass("selected");e.removeClass("open").find("a.current").html(h.html());h.closest("ul").find("li").each(function(i){if(h[0]==this){d=i}});f[0].selectedIndex=d;f.trigger("change")})})(jQuery);
 /*! http://mths.be/placeholder v1.8.5 by @mathias */
 (function(j,i,l){var k="placeholder" in i.createElement("input"),h="placeholder" in i.createElement("textarea");if(k&&h){l.fn.placeholder=function(){return this};l.fn.placeholder.input=l.fn.placeholder.textarea=true}else{l.fn.placeholder=function(){return this.filter((k?"textarea":":input")+"[placeholder]").bind("focus.placeholder",o).bind("blur.placeholder",m).trigger("blur.placeholder").end()};l.fn.placeholder.input=k;l.fn.placeholder.textarea=h;l(function(){l("form").bind("submit.placeholder",function(){var a=l(".placeholder",this).each(o);setTimeout(function(){a.each(m)},10)})});l(j).bind("unload.placeholder",function(){l(".placeholder").val("")})}function n(b){var c={},a=/^jQuery\d+$/;l.each(b.attributes,function(d,e){if(e.specified&&!a.test(e.name)){c[e.name]=e.value}});return c}function o(){var a=l(this);if(a.val()===a.attr("placeholder")&&a.hasClass("placeholder")){if(a.data("placeholder-password")){a.hide().next().show().focus().attr("id",a.removeAttr("id").data("placeholder-id"))}else{a.val("").removeClass("placeholder")}}}function m(){var a,b=l(this),e=b,c=this.id;if(b.val()===""){if(b.is(":password")){if(!b.data("placeholder-textinput")){try{a=b.clone().attr({type:"text"})}catch(d){a=l("<input>").attr(l.extend(n(this),{type:"text"}))}a.removeAttr("name").data("placeholder-password",true).data("placeholder-id",c).bind("focus.placeholder",o);b.data("placeholder-textinput",a).data("placeholder-id",c).before(a)}b=b.removeAttr("id").hide().prev().attr("id",c).show()}b.addClass("placeholder").val(b.attr("placeholder"))}else{b.removeClass("placeholder")}}}(this,document,jQuery));
+
+
+$(document).ready(function () {
+
+	/* Use this js doc for all application specific JS */
+	
+
+	/* TABS --------------------------------- */
+	/* Remove if you don't need :) */
+
+	/*
+	function activateTab($tab) {
+		var $activeTab = $tab.closest('dl').find('a.active'),
+				contentLocation = $tab.attr("href") + 'Tab';
+
+		//Make Tab Active
+		$activeTab.removeClass('active');
+		$tab.addClass('active');
+
+    	//Show Tab Content
+		$(contentLocation).closest('.tabs-content').children('li').hide();
+		$(contentLocation).show();
+	}
+
+	$('dl.tabs').each(function () {
+		//Get all tabs
+		var tabs = $(this).children('dd').children('a');
+		tabs.click(function (e) {
+			activateTab($(this));
+		});
+	});
+
+	if (window.location.hash) {
+		activateTab($('a[href="' + window.location.hash + '"]'));
+	}
+	*/
+
+	/* ALERT BOXES ------------ */
+	$(".alert-box").delegate("a.close", "click", function(event) {
+    event.preventDefault();
+	  $(this).closest(".alert-box").fadeOut(function(event){
+	    $(this).remove();
+	  });
+	});
+
+
+	/* PLACEHOLDER FOR FORMS ------------- */
+	/* Remove this and jquery.placeholder.min.js if you don't need :) */
+
+	$('input, textarea').placeholder();
+
+
+
+	/* UNCOMMENT THE LINE YOU WANT BELOW IF YOU WANT IE6/7/8 SUPPORT AND ARE USING .block-grids */
+//	$('.block-grid.two-up>li:nth-child(2n+1)').css({clear: 'left'});
+//	$('.block-grid.three-up>li:nth-child(3n+1)').css({clear: 'left'});
+//	$('.block-grid.four-up>li:nth-child(4n+1)').css({clear: 'left'});
+//	$('.block-grid.five-up>li:nth-child(5n+1)').css({clear: 'left'});
+
+
+
+	/* DROPDOWN NAV ------------- */
+
+	var currentFoundationDropdown = null;
+	$('.nav-bar li a, .nav-bar li a:after').each(function() {
+		$(this).data('clicks', 0);
+	});
+	$('.nav-bar li a, .nav-bar li a:after').live('click', function(e) {
+		e.preventDefault();
+		if (currentFoundationDropdown !== $(this).index() || currentFoundationDropdown === null) {
+			$(this).data('clicks', 0);
+			currentFoundationDropdown = $(this).index();
+		}
+		$(this).data('clicks', ($(this).data('clicks') + 1));
+		var f = $(this).siblings('.flyout');
+		if (!f.is(':visible') && $(this).parent('.has-flyout').length > 1) {
+			$('.nav-bar li .flyout').hide();
+			f.show();
+		} else if (($(this).data('clicks') > 1) || ($(this).parent('.has-flyout').length < 1)) {
+			window.location = $(this).attr('href');
+		}
+	});
+	$('.nav-bar').live('click', function(e) {
+		e.stopPropagation();
+		if ($(e.target).parents().is('.flyout') || $(e.target).is('.flyout')) {
+			e.preventDefault();
+		}
+	});
+	// $('body').bind('touchend', function(e) {
+	// 	if (!$(e.target).parents().is('.nav-bar') || !$(e.target).is('.nav-bar')) {
+	// 		$('.nav-bar li .flyout').is(':visible').hide();
+	// 	}
+	// });
+
+	/* DISABLED BUTTONS ------------- */
+	/* Gives elements with a class of 'disabled' a return: false; */
+
+});

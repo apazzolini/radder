@@ -6,55 +6,43 @@
 		<div class='foundation-header'>
 			<h1>Standings</h1>
 		</div>
-		<table class="homepageTable">
-			<thead>
-				<tr>
-					<td>Rank</td>
-					<td>Person</td>
-					<td>Rating</td>
-					<td>Games Played</td>
-					<td>
-						#{if session.username}
-							Action
-			            #{/if}
-		            </td>
-				</tr>
-			</thead>
-			<tbody>
-				#{list items:players, as:'player'}
-					<tr>
-						<td>${player_index}</td>
-						<td><a href="@{Games.resultsForUser(player.email)}">${player}</a></td>
-						<td>${player.rating.intValue()}</td>
-						<td>${player.numGamesPlayed()}</td>
-						<td>
-							#{if session.username && session.username != player.email}
-								<a href="@{Games.createChallenge(player.email)}">Challenge</a>
-				            #{/if}
-			            </td>
-					</tr>
-				#{/list}
-			</tbody>
-		</table>
+		#{standingsTable players: players /}
 	</div>
 	<div class="six columns">
-		<div class='foundation-header'>
-			<h1>Latest Results</h1>
+		#{if session.username}
+			<div id="challenges-header" class='foundation-header'>
+				<h1>Challenges</h1>
+			</div>
+			
+			<div id="challengesTabContainer">
+				#{if challenges}
+					<div id="challengesMessage"> </div>
+					#{resultsTable games: challenges /}
+				#{/if}
+				#{else}
+					You have no current challenges
+				#{/else}
+			</div>
+		#{/if}
+		
+		<div id="results-header" class='foundation-header'>
+			<h1>Results</h1>
 		</div>
-		<table class="homepageTable">
-			<thead>
-				<tr>
-					<td>Date Played</td>
-					<td>Player One</td>
-					<td>Player Two</td>
-					<td>Score</td>
-				</tr>
-			</thead>
-			<tbody>
-				#{list items:games, as:'game'}
-					#{include 'Games/gameResult.html' /}
-				#{/list}
-			</tbody>
-		</table>
+		
+		<dl id="resultsTabs" class="tabs nice">
+			<dd><a id="allResultsTab" href="#" onclick="allResults()" class="active">All Results</a></dd>
+			#{if session.username}
+				<dd><a id="myResultsTab" href="#" onclick="myResults(${session.userid})">My Results</a></dd>
+			#{/if}
+			<dd><a id="userResultsTab">User Results</a></dd>
+		</dl>
+		
+		<div id="resultsTabContent">
+			#{resultsTable games: games /}
+		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$resultsTabs = $('#resultsTabs'); // Put this on the global scope
+</script>

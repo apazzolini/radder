@@ -14,8 +14,13 @@ public class Application extends Controller {
 
     public static void index() {
     	List<Player> players = Player.find("order by rating desc").fetch();
-    	List<Game> games = Game.find("winner is not null order by timeResultRecorded desc").fetch(5);
-    	render(players, games);
+    	List<Game> games = Game.findAllResults().fetch();
+    	List<Game> challenges = null;
+    	if (session.get("userid") != null) { 
+    		Long currentUserId = Long.parseLong(session.get("userid"));
+    		challenges = Game.findUserChallenges(currentUserId).fetch();
+    	}
+    	render(players, games, challenges);
     }
     
     public static void showRule(String rule) {

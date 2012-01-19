@@ -6,23 +6,27 @@
 		<h1>Login</h1>
 		<h4 class='subheader'>Fill out this here form</h4>
 	</div>
-	#{form @authenticate(), class: 'nice', id: 'authenticate'}
+	#{form @authenticate(), class: 'nice', id: 'loginForm'}
 		#{if flash.error}
-			<p class="error">
-				&{flash.error}
-			</p>
-		#{/if}
-		#{if flash.success}
-			<p class="success">
-				&{flash.success}
-			</p>
+			<p class="error">&{'validation.loginFailed'}</p>
 		#{/if}
 		<label for='username'>Email</label>
 		<input class='input-text' id='username' name='username' size='30' type='text' />
+		
 		<label for='password'>Password</label>
 		<input class='input-text' id='password' name='password' size='30' type='password' />
+		
 		<input type="hidden" name="remember" id="remember" value="true" />
-		<input type="submit" style="display: none;" />
-		<a class='small red nice button' href='#' onclick="$('#authenticate').submit()">Mash this here button</a>
+		
+		<a id="loginButton" class='small red nice button' href='#' onclick="$('#loginForm').submit()">Mash this here button</a>
 	#{/form}
+	
+	<script type="text/javascript">
+		$().ready(function() {
+			$('#loginForm :input').each(function() {
+				$(this).clickButtonOnEnter('loginButton');
+			});
+			$('#username').focus();
+		});
+	</script>
 </div>

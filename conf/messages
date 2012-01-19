@@ -1,3 +1,7 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+validation.emailAlreadyRegistered = This email has already been registered
+validation.loginFailed = Invalid login!
+validation.passwordsDontMatch = The passwords didn't match

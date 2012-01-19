@@ -16,8 +16,35 @@ a.dim {
 	color: #CCC;
 }
 
-table.homepageTable {
+table.results, table.standings {
 	width: 100%;
+}
+
+input.hasError {
+	background-color: red;
+}
+
+span.error { 
+	display: inline;
+	margin-left: 12px;
+	color: @crederaRed;
+}
+
+p.error { 
+	color: @crederaRed;
+}
+
+
+a#registerButton, a#loginButton { 
+	display: block;
+	width: 130px;
+}
+
+#userResultsTab {
+	color: #CCC;
+	&.active {
+		color: #555;
+	}
 }
 
 /*	--------------------------------------------------
@@ -27,6 +54,9 @@ table.homepageTable {
   margin: 0 0 40px 0;
   padding: 30px 0 0 0;
   border-bottom: solid 1px #ccc;
+  &#results-header {
+  	margin-bottom: 25px;
+  }
 }
 .tiny.button { 
 	font-size: 10px; 
@@ -41,6 +71,9 @@ input.inline {
 	margin: 0;
 	padding: 2px !important;
 }
+input.input-text { 
+	display: inline;
+}
 
 /*	--------------------------------------------------
 	:: Foundation Overrides
@@ -51,6 +84,11 @@ a:hover { color: darken(@crederaRed, 15); }
 a:focus { color: #cc4714; outline: none; }
 p a, p a:visited { line-height: inherit; }
 table thead tr td { padding: 9px 10px; font-weight: bold;}
+.nice.tabs dd a.active { top: 0px; }
+dl.tabs dd a { margin: 0px; }
+dl.tabs dd a.active { margin: 0px; height: 25px;}
+.nice.tabs dd a.active { font-weight: normal; border: 0; border-bottom: 3px solid #00a6fc; margin: 0; }
+
 
 /*	--------------------------------------------------
 	:: zurBar (header bar)

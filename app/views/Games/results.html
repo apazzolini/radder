@@ -4,51 +4,8 @@
 <div class='row'>
 	#{resultsHeader resultsUser: resultsUser /}
 	<h3>Unplayed Games</h2>
-	<table>
-		<thead>
-			<tr>
-				<td>Date Challenged</td>
-				<td>Player One</td>
-				<td>Player Two</td>
-				<td>Score</td>
-			</tr>
-		</thead>
-		<tbody>
-			#{list items:unplayedGames, as:'game'}
-				#{include 'Games/gameResult.html' /}
-			#{/list}
-		</tbody>
-	</table>
+	#{resultsTable games: unplayedGames, columnOneHeader: 'Date Challenged' /}
 	
 	<h3>Played Games</h2>
-	<table>
-		<thead>
-			<tr>
-				<td>Date Played</td>
-				<td>Player One</td>
-				<td>Player Two</td>
-				<td>Score</td>
-			</tr>
-		</thead>
-		<tbody>
-			#{list items:playedGames, as:'game'}
-				#{include 'Games/gameResult.html' /}
-			#{/list}
-		</tbody>
-	</table>
+	#{resultsTable games: playedGames, columnOneHeader: 'Date Played' /}
 </div>
-
-<script type="text/javascript">
-	function logResult(gameId, link) {
-		var oneScore = link.find('#oneScore').val();
-		var twoScore = link.find('#twoScore').val();
-		$.post('@{Games.logResult()}', {
-			ts: new Date(), 
-			gameId  : gameId,
-			oneScore: oneScore,
-			twoScore: twoScore
-			}, function(data) {
-				$("#gameRow" + gameId).replaceWith(data);
-			});
-	}
-</script>

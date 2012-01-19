@@ -8,57 +8,73 @@ import models.Player;
 
 public class Games extends CRUD {
 	
-    public static void createChallenge(String email) {
+    public static void challenge(Long userid) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
     	Game game = new Game();
-    	game.one = Player.find("byEmail", session.get("username")).first();
-    	game.two = Player.find("byEmail", email).first();
-    	game.timeChallengeSent = new Date();
+    	game.one = Player.find("byId", currentUserId).first();
+    	game.two = Player.find("byId", userid).first();
+    	game.timeChallenged = new Date();
     	game.save();
-    	resultsForUser(session.get("username"));
+    	Application.index();
     }
     
     public static void logResult(Long gameId, Integer oneScore, Integer twoScore) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
     	Game game = Game.findById(gameId);
     	
-    	validation.range(oneScore, 0, 99);
-    	validation.range(twoScore, 0, 99);
-    	
-    	if (validation.hasErrors() || oneScore.equals(twoScore)) {
-    		renderTemplate("Games/gameResult.html", game);
+    	if (!Game.isValidResult(oneScore, twoScore)) {
+    		renderText("Invalid score");
     	}
     	
-    	if (!game.one.email.equals(session.get("username")) && !game.two.email.equals(session.get("username"))) {
-    		renderTemplate("Games/gameResult.html", game);
+    	if (!(game.one.id.equals(currentUserId) || game.two.id.equals(currentUserId))) {
+    		renderText("You were not a part of this game");
     	}
     	
     	game.oneScore = oneScore;
     	game.twoScore = twoScore;
     	game.winner = (oneScore > twoScore) ? 1 : 2;
-    	game.timeResultRecorded = new Date();
+    	game.timePlayed = new Date();
     	
     	Player winner = (game.winner == 1) ? game.one : game.two;
     	Player loser = (game.winner == 1) ? game.two : game.one;
     	
+    	Double beforeOneRating = game.one.rating;
+    	Double beforeTwoRating = game.two.rating;
+    	
     	winner.wonAgainst(loser, game);
+    	
+    	game.onePointsChange = game.one.rating - beforeOneRating;
+    	game.twoPointsChange = game.two.rating - beforeTwoRating;
     	
     	game.save();
     	winner.save();
     	loser.save();
     	
-    	renderTemplate("Games/gameResult.html", game);
+    	renderText("OK");
     }
     
-    public static void results() {
-    	List<Game> unplayedGames = Game.find("winner is null order by timeChallengeSent asc").fetch();
-    	List<Game> playedGames = Game.find("winner is not null order by timeResultRecorded desc").fetch();
-    	render(unplayedGames, playedGames);
+    public static void allChallenges() {
+    	List<Game> games = Game.findAllChallenges().fetch();
+    	renderArgs.put("challengesFor", "all");
+    	renderTemplate("tags/resultsTable.html", games);
     }
     
-    public static void resultsForUser(String email) {
-    	List<Game> unplayedGames = Game.find("(one.email = ? or two.email = ?) and winner is null order by timeChallengeSent asc", email, email).fetch();
-    	List<Game> playedGames = Game.find("(one.email = ? or two.email = ?) and winner is not null order by timeResultRecorded desc", email, email).fetch();
-    	renderArgs.put("resultsUser", Player.find("byEmail", email).first());
-    	renderTemplate("Games/results.html", unplayedGames, playedGames);
+    public static void userChallenges(Long userid) {
+    	List<Game> games = Game.findUserChallenges(userid).fetch();
+    	renderArgs.put("challengesFor", Player.find("byId", userid).first());
+    	renderTemplate("tags/resultsTable.html", games);
+    }
+    
+    public static void allResults() {
+    	List<Game> games = Game.findAllResults().fetch();
+    	renderArgs.put("resultsFor", "all");
+    	renderTemplate("tags/resultsTable.html", games);
+    }
+    
+    public static void userResults(Long userid) {
+    	List<Game> games = Game.findUserResults(userid).fetch();
+    	renderArgs.put("resultsFor", Player.find("byId", userid).first());
+    	renderTemplate("tags/resultsTable.html", games);
     }
 
 }

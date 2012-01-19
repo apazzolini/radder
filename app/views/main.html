@@ -10,7 +10,6 @@
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/app.css'}"/>
 		
         <script src="@{'/public/javascripts/foundation.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/knockout-2.0.0.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script src="@{'/public/javascripts/app.js'}" type="text/javascript" charset="${_response_encoding}"></script>
     </head>
     <body>
@@ -25,12 +24,10 @@
 	        </div>
 	        <div class='six columns'>
 	          <strong class='right'>
-	            <a href='@{Application.index()}'>Standings</a>
-	            <a href='@{Games.results()}'>Results</a>
 	            <a href='@{Application.showRule()}'>Rules</a>
 	            
 				#{if session.username}
-					<a class='small red round nice button src-download' href='/logout'>Logout (${session.firstName})</a>
+					<a class='small red round nice button src-download' href='/logout'>Logout (${session.friendlyName})</a>
 				#{/if}
 				#{else}
 					<a class='small red round nice button src-download' href='/signup'>Sign Up</a>

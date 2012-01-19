@@ -1,0 +1,30 @@
+<table class="standings">
+	<thead>
+		<tr>
+			<td>Rank</td>
+			<td>Person</td>
+			<td>Rating</td>
+			<td># Games</td>
+			<td>
+				#{if session.username}
+					Action
+	            #{/if}
+            </td>
+		</tr>
+	</thead>
+	<tbody>
+		#{list items:_players, as:'player'}
+			<tr>
+				<td>${player_index}</td>
+				<td><a href="#" onclick="userResults(${player.id})">${player}</a></td>
+				<td>${player.rating.intValue()}</td>
+				<td>${player.games.size()}</td>
+				<td>
+					#{if session.username && session.username != player.email}
+						<a href="#" onclick="challengeUser(${player.id})">Challenge</a>
+		            #{/if}
+	            </td>
+			</tr>
+		#{/list}
+	</tbody>
+</table>

@@ -1,0 +1,25 @@
+<table class="results">
+	<thead>
+		<tr>
+			<td>
+				#{if challengesFor}
+					Challenged	
+				#{/if}
+				#{else}
+					Played
+				#{/else}
+			</td>
+			<td>Player One</td>
+			<td>Player Two</td>
+			<td>Score</td>
+		</tr>
+	</thead>
+	<tbody>
+		#{if _games}
+			#{set games: _games /}
+		#{/if}
+		#{list items:games, as:'game'}
+			#{include 'partials/resultRow.html' /}
+		#{/list}
+	</tbody>
+</table>

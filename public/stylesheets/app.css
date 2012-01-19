@@ -10,8 +10,29 @@ td.winner {
 a.dim {
   color: #CCC;
 }
-table.homepageTable {
+table.results, table.standings {
   width: 100%;
+}
+input.hasError {
+  background-color: red;
+}
+span.error {
+  display: inline;
+  margin-left: 12px;
+  color: #ee3a43;
+}
+p.error {
+  color: #ee3a43;
+}
+a#registerButton, a#loginButton {
+  display: block;
+  width: 130px;
+}
+#userResultsTab {
+  color: #CCC;
+}
+#userResultsTab.active {
+  color: #555;
 }
 /*	--------------------------------------------------
 	:: Foundation Extensions
@@ -20,6 +41,9 @@ table.homepageTable {
   margin: 0 0 40px 0;
   padding: 30px 0 0 0;
   border-bottom: solid 1px #ccc;
+}
+.foundation-header#results-header {
+  margin-bottom: 25px;
 }
 .tiny.button {
   font-size: 10px;
@@ -33,6 +57,9 @@ input.inline {
   width: auto;
   margin: 0;
   padding: 2px !important;
+}
+input.input-text {
+  display: inline;
 }
 /*	--------------------------------------------------
 	:: Foundation Overrides
@@ -58,6 +85,22 @@ p a, p a:visited {
 table thead tr td {
   padding: 9px 10px;
   font-weight: bold;
+}
+.nice.tabs dd a.active {
+  top: 0px;
+}
+dl.tabs dd a {
+  margin: 0px;
+}
+dl.tabs dd a.active {
+  margin: 0px;
+  height: 25px;
+}
+.nice.tabs dd a.active {
+  font-weight: normal;
+  border: 0;
+  border-bottom: 3px solid #00a6fc;
+  margin: 0;
 }
 /*	--------------------------------------------------
 	:: zurBar (header bar)
