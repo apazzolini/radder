@@ -43,6 +43,14 @@ public class Game extends Model {
     	return Game.find("(one.id = ? or two.id = ?) and winner is not null order by timePlayed desc", userid, userid);
 	}
 	
+	public String oneRatingChange() { 
+		return (onePointsChange > 0) ? "+" + onePointsChange.intValue() : "" + onePointsChange.intValue();
+	}
+	
+	public String twoRatingChange() { 
+		return (twoPointsChange > 0) ? "+" + twoPointsChange.intValue() : "" + twoPointsChange.intValue();
+	}
+	
 	public Player getWinningPlayer() {
 		if (winner == null) { 
 			return null;

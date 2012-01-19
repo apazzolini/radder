@@ -1,10 +1,10 @@
 <tr id="gameRow${game.id}">
 	<td>${game.datePlayedOrChallenged}</td>
 	<td #{if 1 == game.winner}class="winner"#{/if}>
-		<a href="#" onclick="userResults(${game.one.id})">${game.one}</a>
+		<a href="#" onclick="userResults(${game.one.id})">${game.one}</a> (${game.oneRatingChange()})
 	</td>
 	<td #{if 2 == game.winner}class="winner"#{/if}>
-		<a href="#" onclick="userResults(${game.two.id})">${game.two}</a>
+		<a href="#" onclick="userResults(${game.two.id})">${game.two}</a> (${game.twoRatingChange()})
 	</td>
 	#{if game.winner != null}
 		<td>${game.oneScore} - ${game.twoScore}</td>

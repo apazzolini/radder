@@ -14,8 +14,13 @@ public class Comment extends Model {
 	public String comment;
 	public Date time;
 	
-	public String getTime() {
+	public String getPrettyTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		return sdf.format(time);
+	}
+	
+	public String getPrettyDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 		return sdf.format(time);
 	}
     

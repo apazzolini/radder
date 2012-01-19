@@ -4,9 +4,8 @@ import java.util.Date;
 
 import models.Comment;
 import models.Player;
-import play.mvc.Controller;
 
-public class Comments extends Controller {
+public class Comments extends CRUD {
 
     public static void comment(String comment) {
     	Long currentUserId = Long.parseLong(session.get("userid"));
