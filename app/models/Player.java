@@ -1,9 +1,6 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -17,14 +14,12 @@ public class Player extends Model {
 	public Boolean pro;
 	public Boolean beginner;
 	
-	@OneToMany public List<Game> games;
-	
 	public String toString() {
 		return name;
 	}
 	
 	public int numGamesPlayed() {
-		return Game.findUserResults(id).fetch().size();
+		return (int) Game.count("(one.id = ? or two.id = ?) and winner is not null", id, id);
 	}
 	
 	public void wonAgainst(Player other, Game game) { 
