@@ -23,6 +23,10 @@ public class Player extends Model {
 		return name;
 	}
 	
+	public int numGamesPlayed() {
+		return Game.findUserResults(id).fetch().size();
+	}
+	
 	public void wonAgainst(Player other, Game game) { 
 		double RA = this.rating;
 		double RB = other.rating;

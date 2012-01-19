@@ -18,7 +18,7 @@
 				<td>${player_index}</td>
 				<td><a href="#" onclick="userResults(${player.id})">${player}</a></td>
 				<td>${player.rating.intValue()}</td>
-				<td>${player.games.size()}</td>
+				<td>${player.numGamesPlayed()}</td>
 				<td>
 					#{if session.username && session.username != player.email}
 						<a href="#" onclick="challengeUser(${player.id})">Challenge</a>
