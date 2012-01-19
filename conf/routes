@@ -20,6 +20,8 @@ POST	/logResult					Games.logResult
 GET		/results					Games.allResults
 GET		/results/{userid}			Games.userResults
 
+POST	/comment					Comments.comment
+
 # Extra play modules
 *      /                			module:secure
 *      /admin              			module:crud

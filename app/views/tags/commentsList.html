@@ -1,0 +1,12 @@
+<ul id="comments">
+	#{if _comments}
+		#{set comments: _comments /}
+	#{/if}
+	#{list items:comments, as:'comment'}
+		<li>
+			<a href="#" onclick="userResults(${comment.player.id})">${comment.player}</a>
+			said at ${comment.time}: 
+			${comment.comment}
+		</li>
+	#{/list}
+</ul>

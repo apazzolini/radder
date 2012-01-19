@@ -24,6 +24,10 @@ span.error {
 p.error {
   color: #ee3a43;
 }
+a#postCommentButton {
+  height: 7px;
+  top: 7px;
+}
 a#registerButton, a#loginButton {
   display: block;
   width: 130px;

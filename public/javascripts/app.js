@@ -45,8 +45,7 @@ function resultsInternal(userid, $activeTab, $tab) {
 
 function challengeUser(userid) {
 	$.post('/challenge', {
-		userid   : userid,
-		ts       : new Date() 
+		userid   : userid
 		}, function(data) {
 			window.location.reload();
 		}
@@ -55,7 +54,6 @@ function challengeUser(userid) {
 
 function logResult(gameId, oneScore, twoScore) {
 	$.post('/logResult', {
-		ts       : new Date(), 
 		gameId   : gameId,
 		oneScore : oneScore,
 		twoScore : twoScore
@@ -64,6 +62,19 @@ function logResult(gameId, oneScore, twoScore) {
 				window.location.reload();
 			} else {
 				$('#challengesMessage').html(data).addClass('alert-box error');
+			}
+		}
+	);
+}
+
+function postComment(comment) {
+	$.post('/comment', {
+		comment   : comment
+		}, function(data) {
+			if (data == 'OK') { 
+				window.location.reload();
+			} else {
+				$('#commentMessage').html(data).addClass('alert-box error');
 			}
 		}
 	);
