@@ -44,11 +44,17 @@ public class Game extends Model {
 	}
 	
 	public String oneRatingChange() { 
-		return (onePointsChange > 0) ? "+" + onePointsChange.intValue() : "" + onePointsChange.intValue();
+		if (onePointsChange != null) { 
+			return (onePointsChange > 0) ? "+" + onePointsChange.intValue() : "" + onePointsChange.intValue();
+		} 
+		return null;
 	}
 	
 	public String twoRatingChange() { 
-		return (twoPointsChange > 0) ? "+" + twoPointsChange.intValue() : "" + twoPointsChange.intValue();
+		if (twoPointsChange != null) { 
+			return (twoPointsChange > 0) ? "+" + twoPointsChange.intValue() : "" + twoPointsChange.intValue();
+		}
+		return null;
 	}
 	
 	public Player getWinningPlayer() {
