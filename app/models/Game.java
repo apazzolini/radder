@@ -29,22 +29,29 @@ public class Game extends Model {
 	public Date timeChallenged;
 	public Date timePlayed;
 	
+	public Integer scoreReporter;
+	public Boolean scoreApproved;
+	
 	@OneToMany public List<Comment> comments;
 	
 	public static JPAQuery findAllChallenges() {
-    	return Game.find("winner is null order by timeChallenged asc");
+    	return Game.find("winner is null or scoreApproved is null order by timeChallenged asc");
     }
     
 	public static JPAQuery findUserChallenges(Long userid) {
-    	return Game.find("(one.id = ? or two.id = ?) and winner is null order by timeChallenged asc", userid, userid);
+    	return Game.find("(one.id = ? or two.id = ?) and (winner is null or scoreApproved is null) order by timeChallenged asc", userid, userid);
     }
     
 	public static JPAQuery findAllResults() {
-    	return Game.find("winner is not null order by timePlayed desc");
+    	return Game.find("winner is not null and scoreApproved is true order by timePlayed desc");
 	}
 	
 	public static JPAQuery findUserResults(Long userid) {
-    	return Game.find("(one.id = ? or two.id = ?) and winner is not null order by timePlayed desc", userid, userid);
+    	return Game.find("(one.id = ? or two.id = ?) and winner is not null and scoreApproved is true order by timePlayed desc", userid, userid);
+	}
+	
+	public Boolean getScoreApproved() {
+		return scoreApproved == null ? false : scoreApproved;
 	}
 	
 	public String oneRatingChange() { 
@@ -59,6 +66,14 @@ public class Game extends Model {
 			return (twoPointsChange > 0) ? "+" + twoPointsChange.intValue() : "" + twoPointsChange.intValue();
 		}
 		return null;
+	}
+	
+	public Player getScoreReportingPlayer() {
+		if (scoreReporter == null) {
+			return null;
+		}
+		
+		return (scoreReporter == 1) ? one : two;
 	}
 	
 	public Player getWinningPlayer() {

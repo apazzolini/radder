@@ -35,21 +35,54 @@ public class Games extends CRUD {
     	game.twoScore = twoScore;
     	game.winner = (oneScore > twoScore) ? 1 : 2;
     	game.timePlayed = new Date();
+    	game.scoreReporter = game.one.id.equals(currentUserId) ? 1 : 2;
     	
-    	Player winner = (game.winner == 1) ? game.one : game.two;
-    	Player loser = (game.winner == 1) ? game.two : game.one;
+    	game.save();
+    	
+    	renderText("OK");
+    }
+    
+    public static void approveResult(Long gameId) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
+    	Game game = Game.findById(gameId);
+    	
+    	if (!(game.one.id.equals(currentUserId) || game.two.id.equals(currentUserId))) {
+    		renderText("You were not a part of this game");
+    	}
     	
     	Double beforeOneRating = game.one.rating;
     	Double beforeTwoRating = game.two.rating;
+    	
+    	Player winner = (game.winner == 1) ? game.one : game.two;
+    	Player loser = (game.winner == 1) ? game.two : game.one;
     	
     	winner.wonAgainst(loser, game);
     	
     	game.onePointsChange = game.one.rating - beforeOneRating;
     	game.twoPointsChange = game.two.rating - beforeTwoRating;
     	
+    	game.scoreApproved = true;
+    	
     	game.save();
     	winner.save();
     	loser.save();
+    	
+    	renderText("OK");
+    }
+    
+    public static void rejectResult(Long gameId) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
+    	Game game = Game.findById(gameId);
+    	
+    	if (!(game.one.id.equals(currentUserId) || game.two.id.equals(currentUserId))) {
+    		renderText("You were not a part of this game");
+    	}
+    	
+    	game.oneScore = null;
+    	game.twoScore = null;
+    	game.winner = null;
+    	game.scoreReporter = null;
+    	game.save();
     	
     	renderText("OK");
     }

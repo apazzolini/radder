@@ -107,6 +107,24 @@ function challengeUser(userid) {
 	);
 }
 
+function approveResult(gameId) {
+	$.post('/approveResult', {
+		gameId   : gameId
+		}, function(data) {
+			window.location.reload();
+		}
+	);
+}
+
+function rejectResult(gameId) {
+	$.post('/rejectResult', {
+		gameId   : gameId
+		}, function(data) {
+			window.location.reload();
+		}
+	);
+}
+
 function logResult(gameId, oneScore, twoScore) {
 	$.post('/logResult', {
 		gameId   : gameId,

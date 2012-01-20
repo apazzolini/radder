@@ -2,13 +2,14 @@
 	#{set games: _games /}
 #{/if}
 
-<table class="results">
+<table class="challenges">
 	<thead>
 		<tr>
 			<td>Challenged</td>
 			<td>Player One</td>
 			<td>Player Two</td>
 			<td>Score</td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,13 +23,33 @@
 					<a href="javascript:userResults(${game.two.id})">${game.two}</a>
 				</td>
 				<td>	
-					#{if game.one.email == session.username || game.two.email == session.username}
-						<form id="${game.id}-resultForm" class="nice inline logResultForm">
-							<input class="input-text inline" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" value="" />
-							<input class="input-text inline" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" value="" />
-							<a id="${game.id}-logResultButton" class="tiny red nice button" href="#" onclick="logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val())">Save</a>
-						</form>
+					#{if game.scoreReporter != null}
+						${game.oneScore} - ${game.twoScore}
 					#{/if}
+					#{else}
+						#{if game.one.email == session.username || game.two.email == session.username}
+							<form id="${game.id}-resultForm" class="nice inline logResultForm">
+								<input class="input-text inline score" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" value="" />
+								<input class="input-text inline score" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" value="" />
+							</form>
+						#{/if}
+					#{/else}
+				</td>
+				<td>
+					#{if game.scoreReporter != null}
+					 	#{if game.scoreReportingPlayer.email == session.username}
+					 		Pending
+						#{/if}
+						#{else}
+							<a class="really tiny red nice button" href="#" onclick="rejectResult(${game.id})">X</a>
+							<a class="really tiny green nice button" href="#" onclick="approveResult(${game.id})">&#10003</a>
+						#{/else}
+					#{/if}
+					#{else}
+						#{if game.one.email == session.username || game.two.email == session.username}
+							<a id="${game.id}-logResultButton" class="tiny red nice button" href="#" onclick="logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val())">Save</a>
+						#{/if}
+					#{/else}
 				</td>
 			</tr>
 		#{/list}

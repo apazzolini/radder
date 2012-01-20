@@ -10,8 +10,11 @@ td.winner {
 a.dim {
   color: #CCC;
 }
-table.results, table.standings {
+table.results, table.standings, table.challenges {
   width: 100%;
+}
+table.results tr td, table.standings tr td, table.challenges tr td {
+  vertical-align: middle;
 }
 input.hasError {
   background-color: red;
@@ -52,6 +55,9 @@ a#registerButton, a#loginButton {
   font-size: 10px;
   padding: 6px 8px 4px;
 }
+.tiny.button.really {
+  padding: 4px 8px 3px;
+}
 form.inline {
   margin-bottom: 0px;
 }
@@ -61,8 +67,20 @@ input.inline {
   margin: 0;
   padding: 2px !important;
 }
+input.inline.score {
+  width: 19px;
+}
 input.input-text {
   display: inline;
+}
+.green.button {
+  background-color: #478e0e;
+}
+.nice.green.button {
+  border: 1px solid #478e0e;
+}
+.green.button:hover, .green.button:focus {
+  background-color: #316309;
 }
 /*	--------------------------------------------------
 	:: Foundation Overrides
