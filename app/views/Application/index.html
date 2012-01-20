@@ -14,10 +14,11 @@
 		<div id="commentsMessage"> </div>
 		<form id="postCommentForm" class="nice">
 			<input class="input-text" type="text" id="newComment" />
-			<a id="postCommentButton" class="small red nice button" href="#" onclick="postComment($('#newComment').val())">Mash this here button</a>
 		</form>
 		<script type="text/javascript">
-			$('#newComment').clickButtonOnEnter('postCommentButton');
+			$('#newComment').val(''); // Firefox "feature"
+			$('#newComment').watermark('Type a comment and hit enter');
+			$('#newComment').onEnter(function(){postComment($('#newComment').val())});
 		</script>
 		#{commentsList comments: comments /}
 	</div>

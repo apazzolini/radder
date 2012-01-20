@@ -16,17 +16,17 @@
 			<tr id="gameRow${game.id}">
 				<td>${game.dateChallenged}</td>
 				<td>
-					<a href="#" onclick="userResults(${game.one.id})">${game.one}</a>
+					<a href="javascript:userResults(${game.one.id})">${game.one}</a>
 				</td>
 				<td>
-					<a href="#" onclick="userResults(${game.two.id})">${game.two}</a>
+					<a href="javascript:userResults(${game.two.id})">${game.two}</a>
 				</td>
 				<td>	
 					#{if game.one.email == session.username || game.two.email == session.username}
 						<form id="${game.id}-resultForm" class="nice inline logResultForm">
-							<input class='input-text inline' id='${game.id}-oneScore' name='oneScore' size="2" maxlength="2" type='text' />
-							<input class='input-text inline' id='${game.id}-twoScore' name='twoScore' size='2' maxlength="2" type='text' />
-							<a id="${game.id}-logResultButton" class='tiny red nice button' href='#' onclick="logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val())">Save</a>
+							<input class="input-text inline" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" value="" />
+							<input class="input-text inline" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" value="" />
+							<a id="${game.id}-logResultButton" class="tiny red nice button" href="#" onclick="logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val())">Save</a>
 						</form>
 					#{/if}
 				</td>
@@ -38,6 +38,7 @@
 <script type="text/javascript">
 	$().ready(function() {
 		$('.logResultForm :input').each(function() {
+			$(this).val(''); // Firefox "feature"
 			$(this).clickButtonOnEnter($(this).next('logResultButton'));
 		});
 	});

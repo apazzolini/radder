@@ -1,3 +1,13 @@
+jQuery.fn.onEnter = function(fn) {
+    var me = jQuery(this[0]) // The bound element
+    
+	jQuery(me).keypress(function(e) {
+		if (e.keyCode == 13) {
+			fn();
+		}
+	});
+};
+
 jQuery.fn.clickButtonOnEnter = function(buttonId) {
     var me = jQuery(this[0]) // The bound element
     
