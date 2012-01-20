@@ -1,14 +1,7 @@
 <table class="results">
 	<thead>
 		<tr>
-			<td>
-				#{if challengesFor}
-					Challenged	
-				#{/if}
-				#{else}
-					Played
-				#{/else}
-			</td>
+			<td>Played</td>
 			<td>Player One</td>
 			<td>Player Two</td>
 			<td>Score</td>
@@ -19,7 +12,16 @@
 			#{set games: _games /}
 		#{/if}
 		#{list items:games, as:'game'}
-			#{include 'partials/resultRow.html' /}
+			<tr id="gameRow${game.id}">
+				<td>${game.datePlayed}</td>
+				<td #{if 1 == game.winner}class="winner"#{/if}>
+					<a href="#" onclick="userResults(${game.one.id})">${game.one}</a> (${game.oneRatingChange()})
+				</td>
+				<td #{if 2 == game.winner}class="winner"#{/if}>
+					<a href="#" onclick="userResults(${game.two.id})">${game.two}</a> (${game.twoRatingChange()})
+				</td>
+				<td>${game.oneScore} - ${game.twoScore}</td>
+			</tr>
 		#{/list}
 	</tbody>
 </table>

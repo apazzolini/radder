@@ -14,6 +14,8 @@ public class Comment extends Model {
 	public String comment;
 	public Date time;
 	
+	@ManyToOne public Game game;
+	
 	public String getPrettyTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		return sdf.format(time);

@@ -3,7 +3,7 @@
 #{/if}
 
 #{list items:comments, as:'comment'}
-		<div class="panel">
+	<div class="panel">
 		<h5><a href="#" onclick="userResults(${comment.player.id})">${comment.player}</a>
 			said at ${comment.getPrettyTime()} on ${comment.getPrettyDate()}</h5>
 		<p>${comment.comment}</p>

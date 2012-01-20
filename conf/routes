@@ -16,6 +16,7 @@ GET		/challenges/{userid}		Games.userChallenges
 
 POST	/challenge					Games.challenge
 POST	/logResult					Games.logResult
+POST	/comment/{gameid}			Games.comment
 
 GET		/results					Games.allResults
 GET		/results/{userid}			Games.userResults

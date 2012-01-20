@@ -2,9 +2,11 @@ package models;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -26,6 +28,8 @@ public class Game extends Model {
 	
 	public Date timeChallenged;
 	public Date timePlayed;
+	
+	@OneToMany public List<Comment> comments;
 	
 	public static JPAQuery findAllChallenges() {
     	return Game.find("winner is null order by timeChallenged asc");
@@ -73,13 +77,14 @@ public class Game extends Model {
 		return (winner == 1) ? two : one;
 	}
 	
-	public String getDatePlayedOrChallenged() {
+	public String getDateChallenged() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		if (timePlayed == null) { 
-			return sdf.format(timeChallenged);
-		} else {
-			return sdf.format(timePlayed);
-		}
+		return sdf.format(timeChallenged);
+	}
+	
+	public String getDatePlayed() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		return sdf.format(timePlayed);
 	}
 	
 	public static boolean isValidResult(Integer oneScore, Integer twoScore) {

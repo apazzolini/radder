@@ -22,6 +22,14 @@ public class Player extends Model {
 		return (int) Game.count("(one.id = ? or two.id = ?) and winner is not null", id, id);
 	}
 	
+	public int numGamesWon() { 
+		return (int) (Game.count("one.id = ? and winner is 1", id) + Game.count("two.id = ? and winner is 2", id));
+	}
+	
+	public int numGamesLost() { 
+		return (int) (Game.count("one.id = ? and winner is 2", id) + Game.count("two.id = ? and winner is 1", id));
+	}
+	
 	public void wonAgainst(Player other, Game game) { 
 		double RA = this.rating;
 		double RB = other.rating;

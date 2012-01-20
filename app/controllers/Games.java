@@ -3,6 +3,7 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import models.Comment;
 import models.Game;
 import models.Player;
 
@@ -51,6 +52,23 @@ public class Games extends CRUD {
     	loser.save();
     	
     	renderText("OK");
+    }
+    
+    public static void comment(Long gameid, String comment) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
+    	Game game = Game.findById(gameid);
+    	
+    	Comment newComment = new Comment();
+    	newComment.comment = comment;
+    	newComment.time = new Date();
+    	newComment.player = Player.findById(currentUserId);
+    	newComment.game = game;
+    	
+    	game.comments.add(newComment);
+    	
+    	newComment.save();
+    	game.save();
+    	renderText("kk");
     }
     
     public static void allChallenges() {

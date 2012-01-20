@@ -7,24 +7,18 @@
 			<h1>Standings</h1>
 		</div>
 		#{standingsTable players: players /}
+		
 		<div class='foundation-header'>
 			<h1>Talk</h1>
 		</div>
-		
 		<div id="commentsMessage"> </div>
 		<form id="postCommentForm" class="nice">
 			<input class="input-text" type="text" id="newComment" />
 			<a id="postCommentButton" class="small red nice button" href="#" onclick="postComment($('#newComment').val())">Mash this here button</a>
 		</form>
-		
 		<script type="text/javascript">
-			$().ready(function() {
-				$('#postCommentForm :input').each(function() {
-					$(this).clickButtonOnEnter('postCommentButton');
-				});
-			});
+			$('#newComment').clickButtonOnEnter('postCommentButton');
 		</script>
-		
 		#{commentsList comments: comments /}
 	</div>
 	<div class="six columns">
@@ -36,7 +30,7 @@
 			<div id="challengesTabContainer">
 				#{if challenges}
 					<div id="challengesMessage"> </div>
-					#{resultsTable games: challenges /}
+					#{challengesTable games: challenges /}
 				#{/if}
 				#{else}
 					You have no current challenges

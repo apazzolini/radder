@@ -8,6 +8,51 @@ jQuery.fn.clickButtonOnEnter = function(buttonId) {
 	});
 };
 
+jQuery.fn.watermark = function(watermarkString) {
+    var original = jQuery(this[0]) // The bound element
+	var cloned = jQuery(original).clone();
+    var form = jQuery(original).closest('form');
+    
+	jQuery(cloned).attr('id', jQuery(cloned).attr('id') + "_cloned");
+	jQuery(cloned).attr('type', 'text');
+	jQuery(original).after(jQuery(cloned));
+	
+	if (jQuery(original).val().length == 0) {
+		jQuery(original).hide();
+		jQuery(original).attr('disabled', true);
+	} else {
+		jQuery(cloned).hide();
+		jQuery(cloned).attr('disabled', true);
+	}
+	
+	jQuery(cloned).css('color', '#999999');
+	jQuery(cloned).val(watermarkString);
+	
+	jQuery(cloned).focus(function() {
+		jQuery(this).hide();  
+		jQuery(this).attr('disabled', true);
+	 	jQuery(original).attr('disabled', false);
+	 	jQuery(original).show();
+	  	jQuery(original).focus();
+	});
+
+	jQuery(original).blur(function() {
+	    if (jQuery(this).val().length == 0) {
+	       	jQuery(this).hide();  
+	       	jQuery(this).attr('disabled', true);
+	       	jQuery(cloned).show();
+	       	jQuery(cloned).attr('disabled', false);
+	    } else {
+	    	jQuery(cloned).attr('disabled', true);
+	    }
+	});
+	
+    jQuery(form).submit(function() {
+    	jQuery(cloned).attr('disabled', true);
+    	jQuery(original).attr('disabled', false);
+    });
+};
+
 function userResults(userid) {
 	var $activeTab = $resultsTabs.find('a.active'),
 	 	$tab       = $resultsTabs.find('#userResultsTab');
@@ -76,6 +121,15 @@ function postComment(comment) {
 			} else {
 				$('#commentMessage').html(data).addClass('alert-box error');
 			}
+		}
+	);
+}
+
+function postGameComment(gameId, comment) {
+	$.post('/comment/' + gameId, {
+		comment   : comment
+		}, function(data) {
+			alert(data);
 		}
 	);
 }
