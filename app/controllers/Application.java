@@ -13,14 +13,6 @@ import play.mvc.Controller;
 public class Application extends Controller {
 
     public static void index() {
-    	
-    	List<Game> games2 = Game.findAll();
-    	for (Game game : games2) { 
-    		game.scoreApproved = true;
-    		game.save();
-    	}
-    	
-    	
     	List<Player> players = Player.find("order by rating desc").fetch();
     	List<Game> games = Game.findAllResults().fetch();
     	List<Comment> comments = Comment.find("game is null order by time desc").fetch();
