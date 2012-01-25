@@ -13,32 +13,32 @@
         <script src="@{'/public/javascripts/app.js'}" type="text/javascript" charset="${_response_encoding}"></script>
     </head>
     <body>
-	    <div class='container' id='zurBar'>
-	      <div class='row'>
-	        <div class='six columns'>
+	    <div class="container" id="zurBar">
+	      <div class="row">
+	        <div class="six columns">
 	          <h1>
-	            <a href='/'>
-	              Credera Ping Pong Ladder
+	            <a href="/">
+	            	&{'main.headerTitle'}
 	            </a>
 	          </h1>
 	        </div>
-	        <div class='six columns'>
-	          <strong class='right'>
-	            <a href='@{Application.showRule()}'>Rules</a>
+	        <div class="six columns">
+	          <strong class="right">
+	            <a href="@{Application.showRule()}">Rules</a>
 	            
 				#{if session.username}
-					<a class='small red round nice button src-download' href='/logout'>Logout (${session.friendlyName})</a>
+					<a class="small red round nice button src-download" href="/logout">Logout (${session.friendlyName})</a>
 				#{/if}
 				#{else}
-					<a class='small red round nice button src-download' href='/signup'>Sign Up</a>
-					<a class='small red round nice button src-download' href='/login'>Login</a>
+					<a class="small red round nice button src-download" href="/signup">Sign Up</a>
+					<a class="small red round nice button src-download" href="/login">Login</a>
 				#{/else}
 				
 	          </strong>
 	        </div>
 	      </div>
 	    </div>
-	    <div class='container' id='mainContainer'>
+	    <div class="container" id="mainContainer">
         	#{doLayout /}
 	    </div>
     </body>

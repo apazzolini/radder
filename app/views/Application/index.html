@@ -1,30 +1,42 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<div class='row'>
+<div class="row">
+
 	<div class="six columns">
-		<div class='foundation-header'>
+		<div class="foundation-header">
 			<h1>Standings</h1>
 		</div>
 		#{standingsTable players: players /}
 		
-		<div class='foundation-header'>
+		<div class="foundation-header">
 			<h1>Talk</h1>
 		</div>
-		<div id="commentsMessage"> </div>
-		<form id="postCommentForm" class="nice">
-			<input class="input-text" type="text" id="newComment" />
-		</form>
-		<script type="text/javascript">
-			$('#newComment').val(''); // Firefox "feature"
-			$('#newComment').watermark('Type a comment and hit enter');
-			$('#newComment').onEnter(function(){postComment($('#newComment').val())});
-		</script>
+		#{if session.username}
+			<div id="commentsMessage"></div>
+	
+			<form id="postCommentForm" class="nice">
+				<input class="input-text" type="text" id="newComment" name="comment" />
+			</form>
+			
+			<script type="text/javascript">
+				$().ready(function() {
+					$('#newComment').val(''); // Firefox "feature"
+					
+					// Because the form only has one element, it will submit on <Enter> by default -- prevent it...
+					$('#postCommentForm').submit(function(e) { e.preventDefault(); return false; });
+					
+					// ... and do it with AJAX instead
+					$('#newComment').onEnter(function(){RADDER.postComment($('#newComment').val());});
+				});
+			</script>
+		#{/if}
 		#{commentsList comments: comments /}
 	</div>
+	
 	<div class="six columns">
 		#{if session.username}
-			<div id="challenges-header" class='foundation-header'>
+			<div id="challenges-header" class="foundation-header">
 				<h1>Challenges</h1>
 			</div>
 			
@@ -39,14 +51,14 @@
 			</div>
 		#{/if}
 		
-		<div id="results-header" class='foundation-header'>
+		<div id="results-header" class="foundation-header">
 			<h1>Results</h1>
 		</div>
 		
 		<dl id="resultsTabs" class="tabs nice">
-			<dd><a id="allResultsTab" href="#" onclick="allResults()" class="active">All Results</a></dd>
+			<dd><a id="allResultsTab" href="/" onclick="RADDER.allResults(); return false;" class="active">All Results</a></dd>
 			#{if session.username}
-				<dd><a id="myResultsTab" href="#" onclick="myResults(${session.userid})">My Results</a></dd>
+				<dd><a id="myResultsTab" href="/" onclick="RADDER.myResults(${session.userid}); return false;">My Results</a></dd>
 			#{/if}
 			<dd><a id="userResultsTab">User Results</a></dd>
 		</dl>
@@ -58,5 +70,5 @@
 </div>
 
 <script type="text/javascript">
-	$resultsTabs = $('#resultsTabs'); // Put this on the global scope
+	$resultsTabs = $('#resultsTabs'); // Put this on the global scope so that the RADDER module can access it
 </script>

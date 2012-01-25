@@ -16,12 +16,12 @@
 		#{list items:_players, as:'player'}
 			<tr>
 				<td>${player_index}</td>
-				<td><a href="#" onclick="userResults(${player.id})">${player}</a></td>
+				<td><a href="/" onclick="RADDER.userResults(${player.id}); return false;">${player}</a></td>
 				<td>${player.rating.intValue()}</td>
 				<td>${player.numGamesWon()} - ${player.numGamesLost()}</td>
 				<td>
 					#{if session.username && session.username != player.email}
-						<a href="#" onclick="challengeUser(${player.id})">Challenge</a>
+						<a href="/" onclick="RADDER.challengeUser(${player.id}); return false;">Challenge</a>
 		            #{/if}
 	            </td>
 			</tr>

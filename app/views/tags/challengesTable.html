@@ -17,10 +17,10 @@
 			<tr id="gameRow${game.id}">
 				<td>${game.dateChallenged}</td>
 				<td>
-					<a href="javascript:userResults(${game.one.id})">${game.one}</a>
+					<a href="/" onclick="userResults(${game.one.id}); return false;">${game.one}</a>
 				</td>
 				<td>
-					<a href="javascript:userResults(${game.two.id})">${game.two}</a>
+					<a href="/" onclick="userResults(${game.two.id}); return false;">${game.two}</a>
 				</td>
 				<td>	
 					#{if game.scoreReporter != null}
@@ -29,8 +29,8 @@
 					#{else}
 						#{if game.one.email == session.username || game.two.email == session.username}
 							<form id="${game.id}-resultForm" class="nice inline logResultForm">
-								<input class="input-text inline score" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" value="" />
-								<input class="input-text inline score" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" value="" />
+								<input class="input-text inline score" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" />
+								<input class="input-text inline score" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" />
 							</form>
 						#{/if}
 					#{/else}
@@ -41,13 +41,13 @@
 					 		Pending
 						#{/if}
 						#{else}
-							<a class="really tiny red nice button" href="#" onclick="rejectResult(${game.id})">X</a>
-							<a class="really tiny green nice button" href="#" onclick="approveResult(${game.id})">&#10003</a>
+							<a class="really tiny red nice button" href="/" onclick="RADDER.rejectResult(${game.id}); return false;">X</a>
+							<a class="really tiny green nice button" href="/" onclick="RADDER.approveResult(${game.id}); return false;">&#10003</a>
 						#{/else}
 					#{/if}
 					#{else}
 						#{if game.one.email == session.username || game.two.email == session.username}
-							<a id="${game.id}-logResultButton" class="tiny red nice button" href="#" onclick="logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val())">Save</a>
+							<a id="${game.id}-logResultButton" class="tiny red nice button" href="/" onclick="RADDER.logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val()); return false;">Save</a>
 						#{/if}
 					#{/else}
 				</td>

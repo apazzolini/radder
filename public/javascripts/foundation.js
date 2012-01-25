@@ -12,41 +12,7 @@
 /*! http://mths.be/placeholder v1.8.5 by @mathias */
 (function(j,i,l){var k="placeholder" in i.createElement("input"),h="placeholder" in i.createElement("textarea");if(k&&h){l.fn.placeholder=function(){return this};l.fn.placeholder.input=l.fn.placeholder.textarea=true}else{l.fn.placeholder=function(){return this.filter((k?"textarea":":input")+"[placeholder]").bind("focus.placeholder",o).bind("blur.placeholder",m).trigger("blur.placeholder").end()};l.fn.placeholder.input=k;l.fn.placeholder.textarea=h;l(function(){l("form").bind("submit.placeholder",function(){var a=l(".placeholder",this).each(o);setTimeout(function(){a.each(m)},10)})});l(j).bind("unload.placeholder",function(){l(".placeholder").val("")})}function n(b){var c={},a=/^jQuery\d+$/;l.each(b.attributes,function(d,e){if(e.specified&&!a.test(e.name)){c[e.name]=e.value}});return c}function o(){var a=l(this);if(a.val()===a.attr("placeholder")&&a.hasClass("placeholder")){if(a.data("placeholder-password")){a.hide().next().show().focus().attr("id",a.removeAttr("id").data("placeholder-id"))}else{a.val("").removeClass("placeholder")}}}function m(){var a,b=l(this),e=b,c=this.id;if(b.val()===""){if(b.is(":password")){if(!b.data("placeholder-textinput")){try{a=b.clone().attr({type:"text"})}catch(d){a=l("<input>").attr(l.extend(n(this),{type:"text"}))}a.removeAttr("name").data("placeholder-password",true).data("placeholder-id",c).bind("focus.placeholder",o);b.data("placeholder-textinput",a).data("placeholder-id",c).before(a)}b=b.removeAttr("id").hide().prev().attr("id",c).show()}b.addClass("placeholder").val(b.attr("placeholder"))}else{b.removeClass("placeholder")}}}(this,document,jQuery));
 
-
 $(document).ready(function () {
-
-	/* Use this js doc for all application specific JS */
-	
-
-	/* TABS --------------------------------- */
-	/* Remove if you don't need :) */
-
-	/*
-	function activateTab($tab) {
-		var $activeTab = $tab.closest('dl').find('a.active'),
-				contentLocation = $tab.attr("href") + 'Tab';
-
-		//Make Tab Active
-		$activeTab.removeClass('active');
-		$tab.addClass('active');
-
-    	//Show Tab Content
-		$(contentLocation).closest('.tabs-content').children('li').hide();
-		$(contentLocation).show();
-	}
-
-	$('dl.tabs').each(function () {
-		//Get all tabs
-		var tabs = $(this).children('dd').children('a');
-		tabs.click(function (e) {
-			activateTab($(this));
-		});
-	});
-
-	if (window.location.hash) {
-		activateTab($('a[href="' + window.location.hash + '"]'));
-	}
-	*/
 
 	/* ALERT BOXES ------------ */
 	$(".alert-box").delegate("a.close", "click", function(event) {
@@ -56,56 +22,22 @@ $(document).ready(function () {
 	  });
 	});
 
-
-	/* PLACEHOLDER FOR FORMS ------------- */
-	/* Remove this and jquery.placeholder.min.js if you don't need :) */
-
 	$('input, textarea').placeholder();
-
-
-
-	/* UNCOMMENT THE LINE YOU WANT BELOW IF YOU WANT IE6/7/8 SUPPORT AND ARE USING .block-grids */
-//	$('.block-grid.two-up>li:nth-child(2n+1)').css({clear: 'left'});
-//	$('.block-grid.three-up>li:nth-child(3n+1)').css({clear: 'left'});
-//	$('.block-grid.four-up>li:nth-child(4n+1)').css({clear: 'left'});
-//	$('.block-grid.five-up>li:nth-child(5n+1)').css({clear: 'left'});
-
-
-
-	/* DROPDOWN NAV ------------- */
-
-	var currentFoundationDropdown = null;
-	$('.nav-bar li a, .nav-bar li a:after').each(function() {
-		$(this).data('clicks', 0);
-	});
-	$('.nav-bar li a, .nav-bar li a:after').live('click', function(e) {
-		e.preventDefault();
-		if (currentFoundationDropdown !== $(this).index() || currentFoundationDropdown === null) {
-			$(this).data('clicks', 0);
-			currentFoundationDropdown = $(this).index();
-		}
-		$(this).data('clicks', ($(this).data('clicks') + 1));
-		var f = $(this).siblings('.flyout');
-		if (!f.is(':visible') && $(this).parent('.has-flyout').length > 1) {
-			$('.nav-bar li .flyout').hide();
-			f.show();
-		} else if (($(this).data('clicks') > 1) || ($(this).parent('.has-flyout').length < 1)) {
-			window.location = $(this).attr('href');
-		}
-	});
-	$('.nav-bar').live('click', function(e) {
-		e.stopPropagation();
-		if ($(e.target).parents().is('.flyout') || $(e.target).is('.flyout')) {
-			e.preventDefault();
-		}
-	});
-	// $('body').bind('touchend', function(e) {
-	// 	if (!$(e.target).parents().is('.nav-bar') || !$(e.target).is('.nav-bar')) {
-	// 		$('.nav-bar li .flyout').is(':visible').hide();
-	// 	}
-	// });
-
-	/* DISABLED BUTTONS ------------- */
-	/* Gives elements with a class of 'disabled' a return: false; */
-
 });
+
+jQuery.fn.onEnter = function(fn) {
+    var me = jQuery(this[0]) // The bound element
+    
+	jQuery(me).keypress(function(e) {
+		if (e.keyCode == 13) {
+			fn();
+		}
+	});
+};
+
+jQuery.fn.clickButtonOnEnter = function(buttonId) {
+    var me = jQuery(this[0]) // The bound element
+    jQuery(me).onEnter(function() {
+		jQuery('#' + buttonId).click();
+    });
+};

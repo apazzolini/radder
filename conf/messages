@@ -2,6 +2,8 @@
 # For example, for French create a messages.fr file
 #
 
+main.headerTitle = Credera Ping Pong Ladder
+
 validation.emailAlreadyRegistered = This email has already been registered
 validation.loginFailed = Invalid login!
 validation.passwordsDontMatch = The passwords didn't match

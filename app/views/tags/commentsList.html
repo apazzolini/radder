@@ -1,11 +1,13 @@
 #{if _comments}
 	#{set comments: _comments /}
 #{/if}
-
+		
 #{list items:comments, as:'comment'}
 	<div class="panel">
-		<h5><a href="#" onclick="userResults(${comment.player.id})">${comment.player}</a>
-			said at ${comment.getPrettyTime()} on ${comment.getPrettyDate()}</h5>
+		<h5>
+			<a href="/" onclick="RADDER.userResults(${comment.player.id}); return false;">${comment.player}</a>
+			said at ${comment.getPrettyTime()} on ${comment.getPrettyDate()}
+		</h5>
 		<p>${comment.comment}</p>
 	</div>
 #{/list}
