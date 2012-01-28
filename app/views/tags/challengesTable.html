@@ -22,21 +22,11 @@
 				<td>
 					<a href="/" onclick="userResults(${game.two.id}); return false;">${game.two}</a>
 				</td>
-				<td>	
-					#{if game.scoreReporter != null}
+				#{if game.scoreReporter != null}
+					<td>
 						${game.oneScore} - ${game.twoScore}
-					#{/if}
-					#{else}
-						#{if game.one.email == session.username || game.two.email == session.username}
-							<form id="${game.id}-resultForm" class="nice inline logResultForm">
-								<input class="input-text inline score" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" />
-								<input class="input-text inline score" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" />
-							</form>
-						#{/if}
-					#{/else}
-				</td>
-				<td>
-					#{if game.scoreReporter != null}
+					</td>
+					<td>
 					 	#{if game.scoreReportingPlayer.email == session.username}
 					 		Pending
 						#{/if}
@@ -44,13 +34,21 @@
 							<a class="really tiny red nice button" href="/" onclick="RADDER.rejectResult(${game.id}); return false;">X</a>
 							<a class="really tiny green nice button" href="/" onclick="RADDER.approveResult(${game.id}); return false;">&#10003</a>
 						#{/else}
+					</td>
+				#{/if}
+				#{else}
+					#{if game.one.email == session.username || game.two.email == session.username}
+					<td>
+						<form id="${game.id}-resultForm" class="nice inline logResultForm">
+							<input class="input-text inline score" id="${game.id}-oneScore" name="oneScore" size="2" maxlength="2" type="text" />
+							<input class="input-text inline score" id="${game.id}-twoScore" name="twoScore" size="2" maxlength="2" type="text" />
+						</form>
+					</td>
+					<td>
+						<a id="${game.id}-logResultButton" class="tiny red nice button logResultButton" href="/" onclick="RADDER.logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val()); return false;">Save</a>
+					</td>
 					#{/if}
-					#{else}
-						#{if game.one.email == session.username || game.two.email == session.username}
-							<a id="${game.id}-logResultButton" class="tiny red nice button" href="/" onclick="RADDER.logResult(${game.id}, $('#${game.id}-oneScore').val(), $('#${game.id}-twoScore').val()); return false;">Save</a>
-						#{/if}
-					#{/else}
-				</td>
+				#{/else}
 			</tr>
 		#{/list}
 	</tbody>
@@ -60,7 +58,7 @@
 	$().ready(function() {
 		$('.logResultForm :input').each(function() {
 			$(this).val(''); // Firefox "feature"
-			$(this).clickButtonOnEnter($(this).next('logResultButton'));
+			$(this).clickButtonOnEnter($(this).parent().parent().next().find('a.logResultButton').attr('id'));
 		});
 	});
 </script>
