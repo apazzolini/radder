@@ -98,6 +98,9 @@ public class Game extends Model {
 	}
 	
 	public String getDatePlayed() {
+		if (winner == null) { 
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		return sdf.format(timePlayed);
 	}
