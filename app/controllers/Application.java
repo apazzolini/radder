@@ -26,7 +26,7 @@ public class Application extends Controller {
     
     public static void showRule(String rule) {
     	if (StringUtils.isBlank(rule)) {
-    		rule = "index";
+    		rule = "rating";
     	}
         renderTemplate("Rules/" + rule + ".html");
     }
