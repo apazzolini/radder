@@ -3,3 +3,5 @@
 require:
     - play -> secure
     - play -> crud
+    - play -> spring 1.0.2
+    - org.springframework.security -> spring-security-ldap 3.1.0.RELEASE
