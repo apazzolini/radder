@@ -49,7 +49,7 @@ var RADDER = function($) {
 	
 	function logResult(gameId, oneScore, twoScore) {
 		$.post('/logResult', {gameId: gameId, oneScore: oneScore, twoScore: twoScore}, function(data) {
-			if (data == 'OK') { 
+			if (data == 'OK' || data == 'REFRESH') { 
 				window.location.reload();
 			} else {
 				$('#challengesMessage').html(data).addClass('alert-box error');

@@ -42,7 +42,7 @@
 			
 			<div id="challengesTabContainer">
 				#{if challenges}
-					<div id="challengesMessage"> </div>
+					<div id="challengesMessage" #{if flash.challengesMessage}class="alert-box error" #{/if}>${flash.challengesMessage}</div>
 					#{challengesTable games: challenges /}
 				#{/if}
 				#{else}

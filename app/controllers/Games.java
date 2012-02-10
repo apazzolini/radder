@@ -31,24 +31,16 @@ public class Games extends CRUD {
     		renderText("You were not a part of this game");
     	}
     	
+    	if (!(game.oneScore == null && game.twoScore == null)) {
+    		flash.put("challengesMessage", "Result already submitted - approve or reject it");
+    		renderText("REFRESH");
+    	}
+    	
     	game.oneScore = oneScore;
     	game.twoScore = twoScore;
     	game.winner = (oneScore > twoScore) ? 1 : 2;
     	game.timePlayed = new Date();
     	game.scoreReporter = game.one.id.equals(currentUserId) ? 1 : 2;
-    	
-    	game.save();
-    	
-    	renderText("OK");
-    }
-    
-    public static void approveResult(Long gameId) {
-    	Long currentUserId = Long.parseLong(session.get("userid"));
-    	Game game = Game.findById(gameId);
-    	
-    	if (!(game.one.id.equals(currentUserId) || game.two.id.equals(currentUserId))) {
-    		renderText("You were not a part of this game");
-    	}
     	
     	Double beforeOneRating = game.one.rating;
     	Double beforeTwoRating = game.two.rating;
@@ -61,11 +53,24 @@ public class Games extends CRUD {
     	game.onePointsChange = game.one.rating - beforeOneRating;
     	game.twoPointsChange = game.two.rating - beforeTwoRating;
     	
-    	game.scoreApproved = true;
-    	
     	game.save();
     	winner.save();
     	loser.save();
+    	
+    	renderText("OK");
+    }
+    
+    public static void approveResult(Long gameId) {
+    	Long currentUserId = Long.parseLong(session.get("userid"));
+    	Game game = Game.findById(gameId);
+    	
+    	if (!(game.one.id.equals(currentUserId) || game.two.id.equals(currentUserId))) {
+    		renderText("You were not a part of this game");
+    	}
+    	
+    	game.scoreApproved = true;
+    	
+    	game.save();
     	
     	renderText("OK");
     }
@@ -78,11 +83,20 @@ public class Games extends CRUD {
     		renderText("You were not a part of this game");
     	}
     	
+    	Player one = game.one;
+    	Player two = game.two;
+    	
+    	one.rating = one.rating - game.onePointsChange;
+    	two.rating = two.rating - game.twoPointsChange;
+    	
     	game.oneScore = null;
     	game.twoScore = null;
     	game.winner = null;
     	game.scoreReporter = null;
+    	
     	game.save();
+    	one.save();
+    	two.save();
     	
     	renderText("OK");
     }
