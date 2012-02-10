@@ -2,20 +2,15 @@ package controllers;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import models.Comment;
 import models.Game;
 import models.Player;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.ldap.core.LdapTemplate;
 
 import play.mvc.Controller;
 
 public class Application extends Controller {
-	
-	@Inject private static LdapTemplate ldap;
 	
     public static void index() {
     	List<Player> players = Player.find("order by rating desc").fetch();
@@ -30,11 +25,6 @@ public class Application extends Controller {
     }
     
     public static void showRule(String rule) {
-//    	String username = "aazzolini";
-//        EqualsFilter filter = new EqualsFilter("uid", username);
-//    	boolean authenticated = ldap.authenticate(DistinguishedName.EMPTY_PATH, filter.encode(), password);
-//    	System.out.println("User " + username + " " + authenticated);
-    	
     	if (StringUtils.isBlank(rule)) {
     		rule = "rating";
     	}

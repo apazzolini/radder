@@ -19,13 +19,18 @@ var RADDER = function($) {
 	/* PUBLIC */
 	function userResults(userid) {
 		getResults(userid, $resultsTabs.find('#userResultsTab'));
+		$.get('/players/' + userid + '/name', function(data) {
+			$resultsTabs.find('#userResultsTab').html('User Results: ' + data);
+		});
 	}
 	
 	function myResults(userid) {
+		$resultsTabs.find('#userResultsTab').html('User Results');
 		getResults(userid, $resultsTabs.find('#myResultsTab'));
 	}
 	
 	function allResults() {
+		$resultsTabs.find('#userResultsTab').html('User Results');
 		getResults(null, $resultsTabs.find('#allResultsTab'));
 	}
 

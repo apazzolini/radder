@@ -109,6 +109,7 @@ table thead tr td {
 }
 .nice.tabs dd a.active {
   top: 0px;
+  border-bottom: 3px solid #ee3a43 !important;
 }
 dl.tabs dd a {
   margin: 0px;

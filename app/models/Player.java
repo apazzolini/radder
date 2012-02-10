@@ -8,7 +8,6 @@ import play.db.jpa.Model;
 public class Player extends Model {
 	public String name;
 	public String email;
-	public String password;
 	
 	public Double rating;
 	public Boolean pro;

@@ -8,8 +8,7 @@ GET     /                   		Application.index
 GET		/rules						Application.showRule
 GET     /rules/{rule}				Application.showRule
 
-GET		/signup						Security.signup
-POST	/signup						Security.createPlayer
+GET		/players/{userid}/name		Players.getName
 
 GET		/challenges					Games.allChallenges
 GET		/challenges/{userid}		Games.userChallenges
