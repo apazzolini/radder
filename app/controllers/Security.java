@@ -18,7 +18,7 @@ public class Security extends Secure.Security {
     protected static void createPlayer(String email, String password) {
     	// Create the new player with the default rating
     	Player player = new Player();
-    	player.name = email.substring(email.indexOf('@'));
+    	player.name = email.substring(0,email.indexOf('@'));
     	player.email = email;
     	player.rating = DEFAULT_RATING;
     	player.save();
