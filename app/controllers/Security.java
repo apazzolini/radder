@@ -1,33 +1,42 @@
 package controllers;
 
 import javax.inject.Inject;
+import javax.naming.directory.DirContext;
 
 import models.Player;
 
-import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.support.LdapUtils;
 
 
 public class Security extends Secure.Security {
 	protected final static Double DEFAULT_RATING = 1500.0;
 	
-	@Inject private static LdapTemplate ldap;
+	@Inject private static LdapContextSource contextSource;
+	//@Inject private static LdapTemplate ldapTemplate;
 	
     protected static void createPlayer(String email, String password) {
     	// Create the new player with the default rating
     	Player player = new Player();
-    	player.name = email; // Should query LDAP for full name
+    	player.name = email.substring(email.indexOf('@'));
     	player.email = email;
     	player.rating = DEFAULT_RATING;
     	player.save();
     }
 	
 	static boolean authentify(String email, String password) {
-//    	String username = "aazzolini";
-//        EqualsFilter filter = new EqualsFilter("uid", username);
-//    	boolean authenticated = ldap.authenticate(DistinguishedName.EMPTY_PATH, filter.encode(), password);
-//    	System.out.println("User " + username + " " + authenticated);
-		boolean ldapAuthenticated = true;
-		
+    	Boolean ldapAuthenticated;
+    	
+    	DirContext ctx = null;
+    	try {
+    		ctx = contextSource.getContext(email, password);
+    	    ldapAuthenticated = true;
+    	} catch (Exception e) {
+    		ldapAuthenticated = false; // Context creation failed - authentication did not succeed
+    	} finally {
+    		LdapUtils.closeContext(ctx); // It is imperative that the created DirContext instance is always closed
+    	}
+    	
 		if (ldapAuthenticated) { 
 			Player player = Player.find("byEmail", email).first();
 			if (player == null) { 
@@ -37,6 +46,7 @@ public class Security extends Secure.Security {
 		
 		return ldapAuthenticated;
     }  
+	
 	
 	static void onAuthenticated() {
 		Player player = Player.find("byEmail", session.get("username")).first();

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+            <property name="location" value="classpath:env.properties"/> 
+            <property name="placeholderPrefix"><value>#[</value></property> 
+            <property name="placeholderSuffix"><value>]</value></property> 
+    </bean> 
+
 	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-		<property name="url" value="ldap://net32:389" />
-		<property name="base" value="dc=credera,dc=com" />
+		<property name="url" value="#[ldap-auth-url]" />
+		<property name="base" value="#[ldap-auth-base]" />
+		<property name="userDn" value="#[ldap-auth-user]" />
+        <property name="password" value="#[ldap-auth-pass]" />
 	</bean>
 	<bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
 		<constructor-arg ref="contextSource"/>
 	</bean>
-	
 </beans> 
