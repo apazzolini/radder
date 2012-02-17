@@ -14,3 +14,7 @@ Radder is a simple [Play!](http://www.playframework.org/) webapp for ladder rank
 - In Eclipse, import a general existing project located at `/radder`
 - Run the app by expanding the eclipse folder, right clicking on radder.launch --> Run As... --> radder
 - The app is now running at http://localhost:9000
+
+## NOTE
+
+Master now uses LDAP to authenticate a user. The easiest way to work around this in local development is to set ldapAuthenticated to true in the authentify method in controllers/Security.java after the LDAP check. This will make passwords useless but allow local development.

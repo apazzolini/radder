@@ -18,7 +18,7 @@ public class Security extends Secure.Security {
     protected static void createPlayer(String email, String password) {
     	// Create the new player with the default rating
     	Player player = new Player();
-    	player.name = email.substring(0,email.indexOf('@'));
+    	player.name = email.substring(0, email.indexOf('@'));
     	player.email = email;
     	player.rating = DEFAULT_RATING;
     	player.save();
@@ -36,6 +36,8 @@ public class Security extends Secure.Security {
     	} finally {
     		LdapUtils.closeContext(ctx); // It is imperative that the created DirContext instance is always closed
     	}
+    	
+    	ldapAuthenticated = true;
     	
 		if (ldapAuthenticated) { 
 			Player player = Player.find("byEmail", email).first();
