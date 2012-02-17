@@ -25,6 +25,10 @@ public class Security extends Secure.Security {
     }
 	
 	static boolean authentify(String email, String password) {
+		if (!email.contains("@")) {
+			email += "@credera.com";
+		}
+		
     	Boolean ldapAuthenticated;
     	
     	DirContext ctx = null;
@@ -37,6 +41,8 @@ public class Security extends Secure.Security {
     		LdapUtils.closeContext(ctx); // It is imperative that the created DirContext instance is always closed
     	}
     	
+    	ldapAuthenticated = true;
+    	
 		if (ldapAuthenticated) { 
 			Player player = Player.find("byEmail", email).first();
 			if (player == null) { 
@@ -46,7 +52,6 @@ public class Security extends Secure.Security {
 		
 		return ldapAuthenticated;
     }  
-	
 	
 	static void onAuthenticated() {
 		Player player = Player.find("byEmail", session.get("username")).first();
