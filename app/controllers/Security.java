@@ -5,6 +5,7 @@ import javax.naming.directory.DirContext;
 
 import models.Player;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.support.LdapUtils;
 
@@ -25,8 +26,8 @@ public class Security extends Secure.Security {
     }
 	
 	static boolean authentify(String email, String password) {
-		if (!email.contains("@")) {
-			email += "@credera.com";
+		if (StringUtils.isBlank(password)) {
+			return false;
 		}
 		
     	Boolean ldapAuthenticated;
@@ -41,7 +42,7 @@ public class Security extends Secure.Security {
     		LdapUtils.closeContext(ctx); // It is imperative that the created DirContext instance is always closed
     	}
     	
-    	ldapAuthenticated = true;
+//    	ldapAuthenticated = true;
     	
 		if (ldapAuthenticated) { 
 			Player player = Player.find("byEmail", email).first();
