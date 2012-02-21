@@ -16,7 +16,7 @@ public class Games extends CRUD {
     	game.two = Player.find("byId", userid).first();
     	game.timeChallenged = new Date();
     	game.save();
-    	Application.index();
+    	renderText("OK");
     }
     
     public static void logResult(Long gameId, Integer oneScore, Integer twoScore) {
