@@ -42,7 +42,7 @@ public class Security extends Secure.Security {
     		LdapUtils.closeContext(ctx); // It is imperative that the created DirContext instance is always closed
     	}
     	
-    	ldapAuthenticated = true;
+    	//ldapAuthenticated = true;
     	
 		if (ldapAuthenticated) { 
 			Player player = Player.find("byEmail", email).first();
