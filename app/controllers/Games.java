@@ -50,6 +50,9 @@ public class Games extends CRUD {
     	
     	winner.wonAgainst(loser, game);
     	
+		winner.hasPlayedGame = true;
+		loser.hasPlayedGame = true;
+    	
     	game.onePointsChange = game.one.rating - beforeOneRating;
     	game.twoPointsChange = game.two.rating - beforeTwoRating;
     	
@@ -85,6 +88,20 @@ public class Games extends CRUD {
     	
     	Player one = game.one;
     	Player two = game.two;
+    	
+    	System.out.println(one.numGamesPlayed());
+    	System.out.println(two.numGamesPlayed());
+    	
+    	List<Game> oneGames = Game.findUserResults(one.id).fetch();
+    	List<Game> twoGames = Game.findUserResults(two.id).fetch();
+    	
+    	if (oneGames.size() < 1) {
+    		one.hasPlayedGame = false;
+    	}
+    	
+    	if (twoGames.size() < 1) {
+    		two.hasPlayedGame = false;
+    	}
     	
     	one.rating = one.rating - game.onePointsChange;
     	two.rating = two.rating - game.twoPointsChange;

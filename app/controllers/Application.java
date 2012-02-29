@@ -13,7 +13,13 @@ import play.mvc.Controller;
 public class Application extends Controller {
 	
     public static void index() {
-    	List<Player> players = Player.find("order by rating desc").fetch();
+    	List<Player> players = Player.find("hasPlayedGame = ? order by rating desc", true).fetch();
+    	List<Player> newPlayers = Player.find("hasPlayedGame is null or hasPlayedGame != ? order by rating desc", true).fetch();
+    	
+    	for (Player newPlayer : newPlayers) {
+    		players.add(newPlayer);
+    	}
+    	
     	List<Game> games = Game.findAllResults().fetch();
     	List<Comment> comments = Comment.find("game is null order by time desc").fetch();
     	List<Game> challenges = null;
@@ -25,6 +31,8 @@ public class Application extends Controller {
     }
     
     public static void showRule(String rule) {
+    	Mails.welcome();
+    	
     	if (StringUtils.isBlank(rule)) {
     		rule = "rating";
     	}

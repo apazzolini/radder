@@ -15,7 +15,14 @@
 	<tbody>
 		#{list items:_players, as:'player'}
 			<tr>
-				<td>${player_index}</td>
+				<td>
+					#{if player.hasPlayedGame}
+						${player_index}
+					#{/if}
+					#{else}
+						-
+					#{/else}
+				</td>
 				<td><a href="/" onclick="RADDER.userResults(${player.id}); return false;">${player}</a></td>
 				<td>${player.rating.intValue()}</td>
 				<td>${player.numGamesWon()} - ${player.numGamesLost()}</td>

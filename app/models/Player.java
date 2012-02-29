@@ -12,13 +12,14 @@ public class Player extends Model {
 	public Double rating;
 	public Boolean pro;
 	public Boolean beginner;
+	public Boolean hasPlayedGame;
 	
 	public String toString() {
 		return name;
 	}
 	
 	public int numGamesPlayed() {
-		return (int) Game.count("(one.id = ? or two.id = ?) and winner is not null", id, id);
+		return (int) Game.count("(one.id = ? or two.id = ?) and winner is not null and (winner = 1 or winner = 2)", id, id);
 	}
 	
 	public int numGamesWon() { 
