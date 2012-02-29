@@ -31,7 +31,6 @@ public class Application extends Controller {
     }
     
     public static void showRule(String rule) {
-    	Mails.welcome();
     	
     	if (StringUtils.isBlank(rule)) {
     		rule = "rating";
