@@ -33,6 +33,15 @@ public class Game extends Model {
 	public Boolean scoreApproved;
 
 	@OneToMany public List<Comment> comments;
+	
+	@Override
+	public String toString() {
+		String gameName = one.name + " vs " + two.name;
+		if (winner != null) { 
+			gameName += "(" + oneScore + " - " + twoScore + ")";
+		}
+		return gameName;
+	}
 
 	public static JPAQuery findAllChallenges() {
 		return Game.find("winner is null or scoreApproved is null order by timeChallenged asc");
