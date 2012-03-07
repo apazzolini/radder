@@ -13,17 +13,17 @@ public class Comment extends Model {
 	@ManyToOne public Player player;
 	public String comment;
 	public Date time;
-	
+
 	@ManyToOne public Game game;
-	
+
 	public String getPrettyTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		return sdf.format(time);
 	}
-	
+
 	public String getPrettyDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 		return sdf.format(time);
 	}
-    
+
 }

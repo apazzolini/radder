@@ -8,8 +8,8 @@
 			<td>
 				#{if session.username}
 					Action
-	            #{/if}
-            </td>
+				#{/if}
+			</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,8 +29,8 @@
 				<td>
 					#{if session.username && session.username != player.email}
 						<a href="/" onclick="RADDER.challengeUser(${player.id}); return false;">Challenge</a>
-		            #{/if}
-	            </td>
+					 #{/if}
+				</td>
 			</tr>
 		#{/list}
 	</tbody>
